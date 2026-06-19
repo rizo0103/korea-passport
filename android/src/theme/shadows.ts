@@ -2,7 +2,7 @@
 
 import { ViewStyle } from "react-native";
 
-export const shadows = {
+export const Shadows = {
     "none": {},
 
     "sm": {

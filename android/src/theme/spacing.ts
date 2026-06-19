@@ -1,6 +1,6 @@
 // app spacing values;
 
-export const spacing = {
+export const Spacing = {
     "none": 0,
     "xxs": 2,
     "xs": 4,

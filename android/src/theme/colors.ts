@@ -1,6 +1,6 @@
 // app's main colors;
 
-export const colors = {
+export const Colors = {
     primary: "#004A94",
     primaryDark: "#003A6B",
     primaryLight: "#3366CC",
@@ -14,5 +14,5 @@ export const colors = {
     error: "#F44336",
     textPrimary: "#E0E0E0",       // Светлый текст для хорошей читаемости
     textSecondary: "#A0A0A0",     // Второстепенный текст (серый)
-    textDisabled: "#555555",      // Выключенный текст
+    textDisabled: "#666666",      // Выключенный текст
 } satisfies Record < string, string >;
