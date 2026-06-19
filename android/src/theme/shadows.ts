@@ -1,8 +1,39 @@
 // app's shadow values;
 
+import { ViewStyle } from "react-native";
+
 export const shadows = {
-    "none": "none",
-    "small": "0px 1px 3px rgba(0, 0, 0, 0.2)",
-    "medium": "0px 4px 6px rgba(0, 0, 0, 0.3)",
-    "large": "0px 10px 20px rgba(0, 0, 0, 0.4)",
-};
+    "none": {},
+
+    "sm": {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1
+        },
+        shadowRadius: 3,
+        shadowOpacity: 0.15,
+        elevation: 2
+    },
+
+    "md": {
+        shadowColor: "#000",
+        shadowOffset: { 
+            width: 0, 
+            height: 3 
+        },
+        shadowRadius: 5,
+        shadowOpacity: 0.2,
+        elevation: 5
+    },
+    "lg": {
+        shadowColor: "#000",
+        shadowOffset: { 
+            width: 0, 
+            height: 6 
+        },
+        shadowRadius: 10,
+        shadowOpacity: 0.25,
+        elevation: 8
+    },
+} satisfies Record < string, ViewStyle >;

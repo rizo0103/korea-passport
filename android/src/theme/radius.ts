@@ -2,8 +2,9 @@
 
 export const radius = {
     "none": 0,
-    "small": 4,
-    "medium": 8,
-    "large": 16,
+    "sm": 4,
+    "md": 8,
+    "lg": 16,
+    "xl": 32,
     "full": 9999,
-}
+} satisfies Record < string, number >;

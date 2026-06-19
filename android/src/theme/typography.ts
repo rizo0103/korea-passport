@@ -16,14 +16,29 @@ export const typography = {
         fontWeight: "bold",
         lineHeight: 28,
     },
+    "title": {
+        fontSize: 16,
+        fontWeight: "bold",
+        lineHeight: 24,
+    },
     "body": {
         fontSize: 14,
         fontWeight: "normal",
         lineHeight: 20,
+    },
+    "bodySmall": {
+        fontSize: 12,
+        fontWeight: "normal",
+        lineHeight: 16,
     },
     "caption": {
         fontSize: 12,
         fontWeight: "normal",
         lineHeight: 16,
     },
-};
+    "button": {
+        fontSize: 14,
+        fontWeight: "bold",
+        lineHeight: 20,
+    }
+} satisfies Record < string, { fontSize: number, fontWeight: "normal" | "bold", lineHeight: number } >;
