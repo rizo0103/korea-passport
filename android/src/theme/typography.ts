@@ -1,6 +1,6 @@
 // app's typography values;
 
-export const Typography = {
+export const TypographyTheme = {
     "h1": {
         fontSize: 32,
         fontWeight: "bold",
