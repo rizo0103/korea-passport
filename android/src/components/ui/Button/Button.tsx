@@ -1,10 +1,11 @@
 import { Colors } from "@/src/theme";
+import { ReactNode } from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 type ButtonProps = {
-    children: string;
+    children: ReactNode;
     onPress?: () => void;
-    variant: "primary" | "secondary" | "accent";
+    variant?: "primary" | "secondary" | "accent";
     activeOpacity?: number;
     style?: any;
 }
@@ -13,7 +14,7 @@ export const Button = ({children, onPress, variant = "primary", activeOpacity = 
     const getBackground = () => {
         switch (variant) {
             case "secondary":
-                return Colors.surface;
+                return Colors.surfaceSecondary;
             case "accent":
                 return Colors.accent;
             default:

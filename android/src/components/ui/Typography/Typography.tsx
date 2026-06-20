@@ -13,11 +13,12 @@ type TypographyProps = {
     color?: string;
     align?: "left" | "center" | "right";
     style?: StyleProp < TextStyle >;
+    onPress?: () => void;
 };
 
-export const Typography = ({ variant = "body", children, color = Colors.textPrimary, align = "left", style }: TypographyProps) => {
+export const Typography = ({ variant = "body", children, color = Colors.textPrimary, align = "left", style, onPress }: TypographyProps) => {
     return (
-        <Text style={[
+        <Text onPress={onPress} style={[
             TypographyTheme[variant],
             { color, textAlign: align },
             style

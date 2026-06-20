@@ -17,6 +17,8 @@ export const Card = ({ children, style, shadow="none" }: CardProps) => {
                 borderWidth: 1,
                 padding: Spacing.md,
                 overflow: "hidden",
+                margin: Spacing.md,
+                gap: Spacing.lg,
             },
             Shadows[shadow],
             style
