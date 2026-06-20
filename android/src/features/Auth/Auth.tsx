@@ -9,11 +9,12 @@ export const Auth = () => {
 
     if (mode === "register") {
         return (
-            <Register />
+            <Register onSwitch={() => setMode("login")} />
+        )
+    } else {
+        return (
+            <Login onSwitch={() => setMode("register")} />
         )
     }
 
-    return (
-        <Login onSwitch={() => setMode("register")} />
-    )
 }

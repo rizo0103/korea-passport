@@ -20,11 +20,11 @@ export const Login = ({ onSwitch } : LoginProps) => {
             
             <Button style={{ marginTop: Spacing.lg }}>
                 <Typography variant="body">
-                    Start Journey
+                    Continue Journey
                 </Typography>
             </Button>
 
-            <Typography variant="caption" align="center" style={{ marginTop: Spacing["2xl"] }} onPress={onSwitch}>
+            <Typography variant="caption" align="center" onPress={onSwitch}>
                 Don{"'"}t have an account yet ? <Typography variant="caption" color={Colors.primaryLight} style={{ textDecorationLine: "underline" }}> Sign Up </Typography>  
             </Typography>
         </Card>
