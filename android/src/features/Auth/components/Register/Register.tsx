@@ -1,3 +1,4 @@
+import { Avatar } from "@/src/components/ui/Avatar"
 import { Button } from "@/src/components/ui/Button"
 import { Card } from "@/src/components/ui/Card"
 import { Checkbox } from "@/src/components/ui/Checkbox"
@@ -5,7 +6,7 @@ import { Input } from "@/src/components/ui/Input"
 import { Typography } from "@/src/components/ui/Typography"
 import { Colors, Spacing } from "@/src/theme"
 import { useRef, useState } from "react"
-import { TextInput } from "react-native"
+import { TextInput, View } from "react-native"
 
 type RegisterProps = {
     onSwitch: () => void;
@@ -13,12 +14,21 @@ type RegisterProps = {
 
 export const Register = ({ onSwitch } : RegisterProps) => {
     const [ checkboxVal, setCheckboxVal ] = useState(false);
+    const [ initials, setInitials ] = useState("?");
+    const [ inputVals, setInputVals ] = useState({
+        fullName: "",
+        email: "",
+        username: "",
+        password: "",
+    });
+    
     const refs = useRef < (TextInput | null)[] > ([]);
+    
     const fields = [
-        { label: "Full Name", placeholder: "Enter Your Full Name", returnKey: "next", autoCapitalize: "words" },
-        { label: "Email", placeholder: "Enter Your Email", returnKey: "next", keyboardType: "email-address", autoCapitalize: "none" },
-        { label: "Username", placeholder: "Create Username For Your Account", returnKey: "next", autoCapitalize: "none" },
-        { label: "Password", placeholder: "Create Password For Your Account", returnKey: "done", secureTextEntry: true, autoCapitalize: "none" }
+        { id: "fullName", label: "Full Name", placeholder: "Enter Your Full Name", returnKey: "next", autoCapitalize: "words" },
+        { id: "email", label: "Email", placeholder: "Enter Your Email", returnKey: "next", keyboardType: "email-address", autoCapitalize: "none" },
+        { id: "username", label: "Username", placeholder: "Create Username For Your Account", returnKey: "next", autoCapitalize: "none" },
+        { id: "password", label: "Password", placeholder: "Create Password For Your Account", returnKey: "done", secureTextEntry: true, autoCapitalize: "none" }
     ];
 
     const focusNext = (index: number) => {
@@ -30,7 +40,7 @@ export const Register = ({ onSwitch } : RegisterProps) => {
     }
 
     const handleSubmit = () => {
-        // pass;
+        console.log(inputVals);
     }
     
     return (
@@ -39,8 +49,13 @@ export const Register = ({ onSwitch } : RegisterProps) => {
                 Sign Up
             </Typography>
 
+            <View style={{ alignItems: "center" }}>
+                <Avatar initials={initials} />
+            </View>
+
             {fields.map((field, index) => (
                 <Input
+                    id={field.id}
                     ref={el => { refs.current[index] = el; }}
                     key={index}
                     label={field.label} 
@@ -50,11 +65,20 @@ export const Register = ({ onSwitch } : RegisterProps) => {
                     autoCapitalize={field.autoCapitalize as any}
                     secureTextEntry={field.secureTextEntry}
                     onSubmitEditing={() => focusNext(index)}
+                    value={inputVals[field.id as keyof typeof inputVals]}
+                    onChangeText={text => {
+                        setInputVals(prev => ({
+                            ...prev,
+                            [field.id]: text,
+                        }));
+                        
+                        setInitials(inputVals.fullName?.split("")[0]);
+                    }}
                 />
             ))}
             <Checkbox label="Agreed with terms of service" onChange={() => setCheckboxVal(!checkboxVal)} value={checkboxVal} />
 
-            <Button variant="primary" style={{ marginTop: Spacing.lg }}>
+            <Button variant="primary" style={{ marginTop: Spacing.lg }} onPress={handleSubmit}>
                 <Typography>
                     Start Journey
                 </Typography>
