@@ -4,7 +4,8 @@ import { Checkbox } from "@/src/components/ui/Checkbox"
 import { Input } from "@/src/components/ui/Input"
 import { Typography } from "@/src/components/ui/Typography"
 import { Colors, Spacing } from "@/src/theme"
-import { useState } from "react"
+import { useRef, useState } from "react"
+import { TextInput } from "react-native"
 
 type RegisterProps = {
     onSwitch: () => void;
@@ -12,19 +13,45 @@ type RegisterProps = {
 
 export const Register = ({ onSwitch } : RegisterProps) => {
     const [ checkboxVal, setCheckboxVal ] = useState(false);
+    const refs = useRef < (TextInput | null)[] > ([]);
+    const fields = [
+        { label: "Full Name", placeholder: "Enter Your Full Name", returnKey: "next", autoCapitalize: "words" },
+        { label: "Email", placeholder: "Enter Your Email", returnKey: "next", keyboardType: "email-address", autoCapitalize: "none" },
+        { label: "Username", placeholder: "Create Username For Your Account", returnKey: "next", autoCapitalize: "none" },
+        { label: "Password", placeholder: "Create Password For Your Account", returnKey: "done", secureTextEntry: true, autoCapitalize: "none" }
+    ];
 
+    const focusNext = (index: number) => {
+        if (index + 1 < fields.length) {
+            refs.current[index + 1]?.focus();
+        } else {
+            handleSubmit();
+        }
+    }
+
+    const handleSubmit = () => {
+        // pass;
+    }
+    
     return (
         <Card style={{ padding: Spacing.lg }}>
             <Typography variant="h2" align="center">
                 Sign Up
             </Typography>
 
-            <Input label="Full Name" placeholder="Enter Your Full Name" />
-            <Input label="Email" placeholder="Enter Your Email" keyboardType="email-address" autoCapitalize="none" />
-            <Input label="Phone Number" placeholder="Enter Your Phone Number" keyboardType="number-pad" />
-            <Input label="Username" placeholder="Create Username For Your Account" autoCapitalize="none" />
-            <Input label="Password" placeholder="Create Password For Your Account" secureTextEntry />
-
+            {fields.map((field, index) => (
+                <Input
+                    ref={el => { refs.current[index] = el; }}
+                    key={index}
+                    label={field.label} 
+                    placeholder={field.placeholder}
+                    returnKeyType={field.returnKey as any}
+                    keyboardType={field.keyboardType as any}
+                    autoCapitalize={field.autoCapitalize as any}
+                    secureTextEntry={field.secureTextEntry}
+                    onSubmitEditing={() => focusNext(index)}
+                />
+            ))}
             <Checkbox label="Agreed with terms of service" onChange={() => setCheckboxVal(!checkboxVal)} value={checkboxVal} />
 
             <Button variant="primary" style={{ marginTop: Spacing.lg }}>
