@@ -1,14 +1,15 @@
 import { Colors, Radius, Spacing } from "@/src/theme";
-import { useState } from "react";
+import { Ref, useState } from "react";
 import { View, TextInput, TextInputProps } from "react-native";
 import { Typography } from "../Typography";
 
 type Props = TextInputProps & {
     label?: string;
     error?: string;
+    ref?: Ref < TextInput >
 }
 
-export const Input = ({ label, error, style, ...props } : Props) => {
+export const Input = ({ label, error, style, ref, ...props } : Props) => {
     const [ focused, setFocused ] = useState(false);
 
     return (
@@ -20,6 +21,7 @@ export const Input = ({ label, error, style, ...props } : Props) => {
             )}
 
             <TextInput 
+                ref={ref}
                 {...props} 
                 onFocus={e => {
                     setFocused(true);
