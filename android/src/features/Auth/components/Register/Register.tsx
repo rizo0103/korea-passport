@@ -12,24 +12,25 @@ type RegisterProps = {
     onSwitch: () => void;
 }
 
-export const Register = ({ onSwitch } : RegisterProps) => {
-    const [ checkboxVal, setCheckboxVal ] = useState(false);
-    const [ initials, setInitials ] = useState("?");
-    const [ inputVals, setInputVals ] = useState({
+const fields = [
+    { id: "fullName", label: "Full Name", placeholder: "Enter Your Full Name", returnKey: "next", autoCapitalize: "words" },
+    { id: "email", label: "Email", placeholder: "Enter Your Email", returnKey: "next", keyboardType: "email-address", autoCapitalize: "none" },
+    { id: "username", label: "Username", placeholder: "Create Username For Your Account", returnKey: "next", autoCapitalize: "none" },
+    { id: "password", label: "Password", placeholder: "Create Password For Your Account", returnKey: "done", secureTextEntry: true, autoCapitalize: "none" }
+];
+
+export const Register = ({ onSwitch }: RegisterProps) => {
+    const [checkboxVal, setCheckboxVal] = useState(false);
+    const [initials, setInitials] = useState("?");
+    const [inputVals, setInputVals] = useState({
         fullName: "",
         email: "",
         username: "",
         password: "",
     });
-    
-    const refs = useRef < (TextInput | null)[] > ([]);
-    
-    const fields = [
-        { id: "fullName", label: "Full Name", placeholder: "Enter Your Full Name", returnKey: "next", autoCapitalize: "words" },
-        { id: "email", label: "Email", placeholder: "Enter Your Email", returnKey: "next", keyboardType: "email-address", autoCapitalize: "none" },
-        { id: "username", label: "Username", placeholder: "Create Username For Your Account", returnKey: "next", autoCapitalize: "none" },
-        { id: "password", label: "Password", placeholder: "Create Password For Your Account", returnKey: "done", secureTextEntry: true, autoCapitalize: "none" }
-    ];
+
+    const refs = useRef<(TextInput | null)[]>([]);
+
 
     const focusNext = (index: number) => {
         if (index + 1 < fields.length) {
@@ -42,7 +43,7 @@ export const Register = ({ onSwitch } : RegisterProps) => {
     const handleSubmit = () => {
         console.log(inputVals);
     }
-    
+
     return (
         <Card style={{ padding: Spacing.lg }}>
             <Typography variant="h2" align="center">
@@ -58,7 +59,7 @@ export const Register = ({ onSwitch } : RegisterProps) => {
                     id={field.id}
                     ref={el => { refs.current[index] = el; }}
                     key={index}
-                    label={field.label} 
+                    label={field.label}
                     placeholder={field.placeholder}
                     returnKeyType={field.returnKey as any}
                     keyboardType={field.keyboardType as any}
@@ -67,18 +68,30 @@ export const Register = ({ onSwitch } : RegisterProps) => {
                     onSubmitEditing={() => focusNext(index)}
                     value={inputVals[field.id as keyof typeof inputVals]}
                     onChangeText={text => {
-                        setInputVals(prev => ({
-                            ...prev,
-                            [field.id]: text,
-                        }));
-                        
-                        setInitials(inputVals.fullName?.split("")[0]);
-                    }}
-                />
+                        setInputVals(prev => {
+                            const next = {
+                                ...prev,
+                                [field.id]: text,
+                            };
+
+                            if (field.id === "fullName") {
+                                const parts = text.trim().split(" ");
+
+                                setInitials(
+                                    parts
+                                        .slice(0, 2)
+                                        .map(p => p[0]?.toUpperCase())
+                                        .join("") || "?"
+                                );
+                            }
+
+                            return next;
+                        });
+                    }} />
             ))}
             <Checkbox label="Agreed with terms of service" onChange={() => setCheckboxVal(!checkboxVal)} value={checkboxVal} />
 
-            <Button variant="primary" style={{ marginTop: Spacing.lg }} onPress={handleSubmit}>
+            <Button disabled={!checkboxVal} variant="primary" style={{ marginTop: Spacing.lg }} onPress={handleSubmit}>
                 <Typography>
                     Start Journey
                 </Typography>
