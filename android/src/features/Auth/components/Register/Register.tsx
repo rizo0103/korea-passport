@@ -4,6 +4,8 @@ import { Card } from "@/src/components/ui/Card"
 import { Checkbox } from "@/src/components/ui/Checkbox"
 import { Input } from "@/src/components/ui/Input"
 import { Typography } from "@/src/components/ui/Typography"
+import { getAvatarColor } from "@/src/services/avatarColors"
+import { pickImage } from "@/src/services/imagePicker"
 import { Colors, Spacing } from "@/src/theme"
 import { isFormValid } from "@/src/utils"
 import { useMemo, useRef, useState } from "react"
@@ -21,14 +23,15 @@ const fields = [
 ];
 
 export const Register = ({ onSwitch }: RegisterProps) => {
-    const [checkboxVal, setCheckboxVal] = useState(false);
-    const [initials, setInitials] = useState("?");
-    const [inputVals, setInputVals] = useState({
+    const [ checkboxVal, setCheckboxVal ] = useState(false);
+    const [ initials, setInitials ] = useState("?");
+    const [ inputVals, setInputVals ] = useState({
         fullName: "",
         email: "",
         username: "",
         password: "",
     });
+    const [ avatar, setAvatar ] = useState({ uri: "" });
 
     const refs = useRef<(TextInput | null)[]>([]);
 
@@ -60,9 +63,20 @@ export const Register = ({ onSwitch }: RegisterProps) => {
         }
     }
 
+    const handlePickAvatar = async () => {
+        const image = await pickImage();
+
+        if (!image) return ;
+
+        setAvatar({ uri: image.uri });
+    };
+
     const handleSubmit = () => {
-        console.log(inputVals);
-        console.log("text");
+        try {
+            console.log(inputVals);
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
@@ -72,7 +86,7 @@ export const Register = ({ onSwitch }: RegisterProps) => {
             </Typography>
 
             <View style={{ alignItems: "center" }}>
-                <Avatar initials={initials} />
+                <Avatar color={getAvatarColor(inputVals.fullName)} editable={true} initials={initials} onPress={handlePickAvatar} source={avatar.uri ? avatar : null} />
             </View>
 
             {fields.map((field, index) => (
