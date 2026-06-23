@@ -5,7 +5,8 @@ import { Checkbox } from "@/src/components/ui/Checkbox"
 import { Input } from "@/src/components/ui/Input"
 import { Typography } from "@/src/components/ui/Typography"
 import { Colors, Spacing } from "@/src/theme"
-import { useRef, useState } from "react"
+import { isFormValid } from "@/src/utils"
+import { useMemo, useRef, useState } from "react"
 import { TextInput, View } from "react-native"
 
 type RegisterProps = {
@@ -31,6 +32,25 @@ export const Register = ({ onSwitch }: RegisterProps) => {
 
     const refs = useRef<(TextInput | null)[]>([]);
 
+    const formValid = useMemo(() => {
+        return isFormValid(
+            [
+                inputVals.fullName,
+                inputVals.email,
+                inputVals.username,
+                inputVals.password,
+            ],
+            [
+                checkboxVal,
+            ]
+        );
+    }, [
+        inputVals.email,
+        inputVals.fullName,
+        inputVals.password,
+        inputVals.username,
+        checkboxVal,
+    ]);
 
     const focusNext = (index: number) => {
         if (index + 1 < fields.length) {
@@ -42,6 +62,7 @@ export const Register = ({ onSwitch }: RegisterProps) => {
 
     const handleSubmit = () => {
         console.log(inputVals);
+        console.log("text");
     }
 
     return (
@@ -91,7 +112,7 @@ export const Register = ({ onSwitch }: RegisterProps) => {
             ))}
             <Checkbox label="Agreed with terms of service" onChange={() => setCheckboxVal(!checkboxVal)} value={checkboxVal} />
 
-            <Button disabled={!checkboxVal} variant="primary" style={{ marginTop: Spacing.lg }} onPress={handleSubmit}>
+            <Button disabled={!formValid} variant="primary" style={{ marginTop: Spacing.lg }} onPress={handleSubmit}>
                 <Typography>
                     Start Journey
                 </Typography>
