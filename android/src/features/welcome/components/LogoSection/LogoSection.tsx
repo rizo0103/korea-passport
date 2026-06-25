@@ -9,11 +9,11 @@ export const LogoSection = () => {
         <View style={styles.container}>
             <Logo />
             
-            <Typography variant="h1">
+            <Typography variant="h1" color={Colors.primaryLight}>
                 Korea Passport
             </Typography>
 
-            <Typography variant="body" color={Colors.textSecondary}>
+            <Typography variant="body" color={Colors.textPrimary}>
                 Explore Korea through real adventures
             </Typography>
         </View>
