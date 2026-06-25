@@ -27,7 +27,7 @@ const FEATURES = [
 
 export const FeaturesSection = () => {
     return (
-        <View style={{ marginTop: Spacing["lg"], alignItems: 'center' }}>
+        <View style={{ marginTop: Spacing["lg"], alignItems: "center" }}>
             <FlatList
                 data={FEATURES}
                 horizontal

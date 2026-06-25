@@ -9,4 +9,5 @@ export const Spacing = {
     "lg": 24,
     "xl": 32,
     "2xl": 40,
+    "3xl": 120,
 } satisfies Record < string, number >;

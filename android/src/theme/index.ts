@@ -7,3 +7,4 @@ export * from "./spacing";
 export * from "./typography";
 export * from "./avatarSizes";
 export * from "./avatarColors";
+export * from "./iconSizes";

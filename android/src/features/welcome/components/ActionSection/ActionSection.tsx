@@ -1,14 +1,28 @@
-import { View } from "react-native";
+import { Card } from "@/src/components/ui/Card";
+import { Typography } from "@/src/components/ui/Typography";
+import { Button } from "@/src/components/ui/Button";
+import { StyleProp, ViewStyle } from "react-native";
 
 type ActionSectionProps = {
     onStart: () => void;
     onSignIn: () => void;
+    style?: StyleProp < ViewStyle >
 }
 
-export const ActionSection = ({ onStart, onSignIn }: ActionSectionProps) => {
+export const ActionSection = ({ onStart, onSignIn, style }: ActionSectionProps) => {
     return (
-        <View>
+        <Card style={[ style ]}>
+            <Button variant="accent">
+                <Typography>
+                    Begin your journey
+                </Typography>
+            </Button>
 
-        </View>
+            <Button variant="primary">
+                <Typography>
+                    Already have an account
+                </Typography>
+            </Button>
+        </Card>
     )
 }
