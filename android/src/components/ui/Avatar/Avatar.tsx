@@ -1,7 +1,7 @@
 import { Image, ImageSourcePropType, Pressable, View } from "react-native"
 import { createStyles } from "./Avatar.styles";
 import { Typography } from "../Typography";
-import { AvatarColors, AvatarSizes, Colors } from "@/src/theme";
+import { AvatarSizes, Colors } from "@/src/theme";
 
 type AvatarProps = {
     source?: ImageSourcePropType | null;

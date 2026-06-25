@@ -1,4 +1,4 @@
-import { Auth } from "@/src/features/Auth";
+import { View } from "react-native";
 
 type ActionSectionProps = {
     onStart: () => void;
@@ -7,6 +7,8 @@ type ActionSectionProps = {
 
 export const ActionSection = ({ onStart, onSignIn }: ActionSectionProps) => {
     return (
-        <Auth />            
+        <View>
+
+        </View>
     )
 }

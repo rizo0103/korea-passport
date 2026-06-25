@@ -1,12 +1,13 @@
 // app's shadow values;
 
 import { ViewStyle } from "react-native";
+import { Colors } from "./colors";
 
 export const Shadows = {
     "none": {},
 
     "sm": {
-        shadowColor: "#000",
+        shadowColor: Colors.surfaceSecondary,
         shadowOffset: {
             width: 0,
             height: 1
@@ -17,7 +18,7 @@ export const Shadows = {
     },
 
     "md": {
-        shadowColor: "#000",
+        shadowColor: Colors.surfaceSecondary,
         shadowOffset: { 
             width: 0, 
             height: 3 
@@ -27,7 +28,7 @@ export const Shadows = {
         elevation: 5
     },
     "lg": {
-        shadowColor: "#000",
+        shadowColor: Colors.surfaceSecondary,
         shadowOffset: { 
             width: 0, 
             height: 6 
