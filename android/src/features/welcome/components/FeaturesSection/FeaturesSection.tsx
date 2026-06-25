@@ -1,4 +1,4 @@
-import { Colors, Shadows, Spacing } from "@/src/theme";
+import { Colors, Radius, Shadows, Spacing } from "@/src/theme";
 import { FlatList, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Typography } from "@/src/components/ui/Typography";
@@ -45,11 +45,13 @@ export const FeaturesSection = () => {
                             ...Shadows.lg
                         }}
                     >
-                        <Ionicons
-                            name={item.icon as any}
-                            size={28}
-                            color={Colors.primaryLight}
-                        />
+                        <View style={{ borderColor: Colors.primaryLight, borderWidth: 1, padding: Spacing.sm, borderRadius: Radius.full, alignItems: "center", justifyContent: "center" }}>
+                            <Ionicons
+                                name={item.icon as any}
+                                size={28}
+                                color={Colors.primaryLight}
+                            />
+                        </View>
 
                         <Typography style={{ marginTop: Spacing.md }} variant="caption" align="center">
                             {item.title}
@@ -59,7 +61,7 @@ export const FeaturesSection = () => {
                             {item.description}
                         </Typography>
                     </Card>
-                )} 
+                )}
             />
         </View>
     )

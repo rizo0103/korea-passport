@@ -2,6 +2,7 @@ import { Logo } from "@/src/components/common/Logo"
 import { Typography } from "@/src/components/ui/Typography"
 import { View } from "react-native"
 import { styles } from "./LogoSection.styles";
+import { Colors } from "@/src/theme";
 
 export const LogoSection = () => {
     return (
@@ -12,8 +13,8 @@ export const LogoSection = () => {
                 Korea Passport
             </Typography>
 
-            <Typography variant="body">
-                Learn Korean through real adventures
+            <Typography variant="body" color={Colors.textSecondary}>
+                Explore Korea through real adventures
             </Typography>
         </View>
     );
