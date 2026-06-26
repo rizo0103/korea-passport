@@ -31,8 +31,15 @@ export const WelcomeScreen = () => {
                     <FeaturesSection />
 
                     <ActionSection
-                        onStart={() => router.push("/")}
-                        onSignIn={() => router.push("/")}
+                        onStart={() => router.push({
+                            pathname: "/auth",
+                            params: { mode: "register" }
+                        })}
+
+                        onSignIn={() => router.push({
+                            pathname: "/auth",
+                            params: { mode: "login" }
+                        })}
                     />
                 </View>
 

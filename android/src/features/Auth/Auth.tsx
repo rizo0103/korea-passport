@@ -2,19 +2,19 @@ import { useState } from "react"
 import { Login } from "./components/Login"
 import { Register } from "./components/Register";
 import { Screen } from "@/src/components/layout/Screen";
-
-type Mode = "login" | "register";
+import { useLocalSearchParams } from "expo-router";
 
 export const Auth = () => {
-    const [mode, setMode] = useState < Mode > ("login");
+    const { mode } = useLocalSearchParams < { mode?: "login" | "register"; } > ();
+    const [ screen, setScreen ] = useState < "login" | "register" > (mode ?? "login");
 
     return (
         <Screen scrollable={true}>
-            {mode === "login" ? (
-                <Login onSwitch={() => setMode("register")} />
+            {screen === "login" ? (
+                <Login onSwitch={() => setScreen("register")} />
                 
             ) : (
-                <Register onSwitch={() => setMode("login")} />
+                <Register onSwitch={() => setScreen("login")} />
             )}
         </Screen>
     )

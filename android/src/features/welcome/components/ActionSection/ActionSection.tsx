@@ -12,13 +12,13 @@ type ActionSectionProps = {
 export const ActionSection = ({ onStart, onSignIn, style }: ActionSectionProps) => {
     return (
         <Card style={[ style ]} variant="default">
-            <Button variant="accent">
+            <Button variant="accent" onPress={onStart}>
                 <Typography>
                     Begin your journey
                 </Typography>
             </Button>
 
-            <Button variant="primary">
+            <Button variant="primary" onPress={onSignIn}>
                 <Typography>
                     Already have an account
                 </Typography>
