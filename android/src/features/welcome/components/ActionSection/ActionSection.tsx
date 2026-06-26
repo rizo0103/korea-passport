@@ -11,7 +11,7 @@ type ActionSectionProps = {
 
 export const ActionSection = ({ onStart, onSignIn, style }: ActionSectionProps) => {
     return (
-        <Card style={[ style ]}>
+        <Card style={[ style ]} variant="default">
             <Button variant="accent">
                 <Typography>
                     Begin your journey

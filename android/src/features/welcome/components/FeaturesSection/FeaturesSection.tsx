@@ -1,5 +1,5 @@
-import { Colors, Radius, Shadows, Spacing } from "@/src/theme";
-import { FlatList, View } from "react-native";
+import { Colors, Radius, Spacing } from "@/src/theme";
+import { View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Typography } from "@/src/components/ui/Typography";
 import { Card } from "@/src/components/ui/Card";
@@ -27,42 +27,61 @@ const FEATURES = [
 
 export const FeaturesSection = () => {
     return (
-        <View style={{ marginTop: Spacing["lg"], alignItems: "center" }}>
-            <FlatList
-                data={FEATURES}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={item => item.id}
-                contentContainerStyle={{ paddingHorizontal: Spacing.md }}
-                renderItem={({ item }) => (
-                    <Card
+        <View
+            style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                gap: Spacing.md,
+                marginTop: Spacing.lg,
+            }}
+        >
+            {FEATURES.map((item) => (
+                <Card
+                    key={item.id}
+                    variant="glass"
+                    style={{
+                        flex: 1,
+                        borderColor: Colors.border,
+                        alignItems: "center",
+                        padding: Spacing.md,
+                        gap: Spacing.xxs,
+                    }}
+                >
+                    <View
                         style={{
-                            width: 160,
-                            borderColor: Colors.border,
+                            width: 52,
+                            height: 52,
+                            borderRadius: Radius.full,
+                            borderWidth: 1,
+                            borderColor: Colors.primaryLight,
                             alignItems: "center",
-                            padding: Spacing.md,
-                            gap: Spacing.xxs,
-                            ...Shadows.lg
+                            justifyContent: "center",
                         }}
                     >
-                        <View style={{ borderColor: Colors.primaryLight, borderWidth: 1, padding: Spacing.sm, borderRadius: Radius.full, alignItems: "center", justifyContent: "center" }}>
-                            <Ionicons
-                                name={item.icon as any}
-                                size={28}
-                                color={Colors.primaryLight}
-                            />
-                        </View>
+                        <Ionicons
+                            name={item.icon as any}
+                            size={24}
+                            color={Colors.primaryLight}
+                        />
+                    </View>
 
-                        <Typography style={{ marginTop: Spacing.md }} variant="caption" align="center">
-                            {item.title}
-                        </Typography>
+                    <Typography
+                        variant="title"
+                        align="center"
+                        style={{ marginTop: Spacing.sm }}
+                    >
+                        {item.title}
+                    </Typography>
 
-                        <Typography color={Colors.textSecondary} variant="caption" align="center">
-                            {item.description}
-                        </Typography>
-                    </Card>
-                )}
-            />
+                    <Typography
+                        variant="bodySmall"
+                        color={Colors.textSecondary}
+                        align="center"
+                    >
+                        {item.description}
+                    </Typography>
+                </Card>
+            ))}
         </View>
     )
 };
