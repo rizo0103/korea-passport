@@ -17,7 +17,7 @@ export const LogoSection = () => {
                 </Typography>
             </Typography>
 
-                <Typography variant="body" color={Colors.textPrimary}>
+                <Typography variant="body" color={Colors.textPrimary} style={{ marginTop: Spacing.md }}>
                     Explore Korea
                 </Typography>
                 <Typography variant="body" color={Colors.textPrimary}>
