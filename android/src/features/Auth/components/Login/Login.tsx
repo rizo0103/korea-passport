@@ -24,7 +24,7 @@ export const Login = ({ onSwitch }: LoginProps) => {
     }
 
     return (
-        <Card style={{ padding: Spacing.lg }}>
+        <Card style={{ padding: Spacing.lg }} variant="glass">
             <Typography align="center" variant="h2">
                 Sign In
             </Typography>

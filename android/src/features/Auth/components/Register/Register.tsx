@@ -80,7 +80,7 @@ export const Register = ({ onSwitch }: RegisterProps) => {
     }
 
     return (
-        <Card style={{ padding: Spacing.lg }}>
+        <Card style={{ padding: Spacing.lg }} variant="glass">
             <Typography variant="h2" align="center">
                 Sign Up
             </Typography>
