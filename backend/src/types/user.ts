@@ -4,7 +4,7 @@ export type CreateUserParams = {
     username: string;
     email: string;
     avatar: {
-        url: string;
-        publicId: string;
+        url: string | undefined;
+        publicId: string | undefined;
     };
 };
