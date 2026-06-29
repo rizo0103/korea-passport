@@ -2,10 +2,11 @@ import { Screen } from "@/src/components/layout/Screen";
 import { LogoSection } from "./components/LogoSection";
 import { ActionSection } from "./components/ActionSection";
 import { router } from "expo-router";
-import { IconSizes, Spacing } from "@/src/theme";
+import { Colors, IconSizes, Spacing } from "@/src/theme";
 import { FeaturesSection } from "./components/FeaturesSection";
 import { Icon } from "@/src/components/ui/Icon";
 import { View } from "react-native";
+import { Typography } from "@/src/components/ui/Typography";
 
 export const WelcomeScreen = () => {
     return (
@@ -43,6 +44,14 @@ export const WelcomeScreen = () => {
                     />
                 </View>
 
+                <Typography variant="caption" align="center">
+                    By continuing you are agree with{'\n'}
+                    <Typography variant="caption" color={Colors.accentLight}>
+                        Terms of Service 
+                        <Typography variant="caption">and</Typography> 
+                        <Typography variant="caption" color={Colors.primaryLight}>Privacy Policy</Typography>
+                    </Typography>
+                </Typography>
             </View>
         </Screen>
     );

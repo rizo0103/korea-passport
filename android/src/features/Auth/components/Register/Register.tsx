@@ -1,7 +1,6 @@
 import { Avatar } from "@/src/components/ui/Avatar"
 import { Button } from "@/src/components/ui/Button"
 import { Card } from "@/src/components/ui/Card"
-import { Checkbox } from "@/src/components/ui/Checkbox"
 import { Input } from "@/src/components/ui/Input"
 import { Typography } from "@/src/components/ui/Typography"
 import { getAvatarColor } from "@/src/services/avatarColors"
@@ -23,7 +22,6 @@ const fields = [
 ];
 
 export const Register = ({ onSwitch }: RegisterProps) => {
-    const [ checkboxVal, setCheckboxVal ] = useState(false);
     const [ initials, setInitials ] = useState("?");
     const [ inputVals, setInputVals ] = useState({
         fullName: "",
@@ -43,16 +41,13 @@ export const Register = ({ onSwitch }: RegisterProps) => {
                 inputVals.username,
                 inputVals.password,
             ],
-            [
-                checkboxVal,
-            ]
+            []
         );
     }, [
         inputVals.email,
         inputVals.fullName,
         inputVals.password,
         inputVals.username,
-        checkboxVal,
     ]);
 
     const focusNext = (index: number) => {
@@ -124,7 +119,6 @@ export const Register = ({ onSwitch }: RegisterProps) => {
                         });
                     }} />
             ))}
-            <Checkbox label="Agreed with terms of service" onChange={() => setCheckboxVal(!checkboxVal)} value={checkboxVal} />
 
             <Button disabled={!formValid} variant="primary" style={{ marginTop: Spacing.lg }} onPress={handleSubmit}>
                 <Typography>
