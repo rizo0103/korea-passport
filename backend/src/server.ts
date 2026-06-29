@@ -1,13 +1,21 @@
+import express from "express";
+import cors from "cors";
 import cloudinary from "./config/cloudinary";
+import uploadRoutes from "./routes/upload.routes";
 
-async function start() {
-    try {
-        const result = await cloudinary.api.ping();
+const app = express();
 
-        console.log(result);
-    } catch (error) {
-        console.error(error);
-    }
-}
+app.use(cors());
+app.use(express.json());
 
-start();
+app.use("/upload", uploadRoutes);
+
+app.get("/health", (req, res) => {
+    res.json({ status: "ok" });
+});
+
+const PORT = 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
