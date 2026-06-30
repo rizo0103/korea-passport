@@ -1,4 +1,5 @@
 import { API } from "../config/api";
+import { tokenStorage } from "../store/token";
 
 export interface ApiResponse < T > {
     success: boolean;
@@ -14,7 +15,7 @@ const buildHeaders = async (isFormData : boolean) => {
         headers["Content-Type"] = "application/json";
     }
 
-    const token = null; // I'll change it later;
+    const token = await tokenStorage.get(); // changed ;)
 
     if (token) {
         headers.Authorization = `Bearer ${token}`;

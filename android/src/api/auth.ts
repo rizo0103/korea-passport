@@ -1,3 +1,4 @@
+import { tokenStorage } from "../store/token";
 import { AuthResponse, LoginRequest, RegisterRequest } from "../types/auth";
 import { apiClient } from "./client";
 
@@ -16,16 +17,24 @@ export const authApi = {
             type: data.avatar.type,
         } as any);
 
-        return apiClient.post < AuthResponse > (
+        const response = await apiClient.post < AuthResponse > (
             "/auth/register",
             formData,
         );
+
+        await tokenStorage.save(response.data.token);
+
+        return response;
     },
 
     async login (data: LoginRequest) {
-        return apiClient.post < AuthResponse > (
+        const response = await apiClient.post < AuthResponse > (
             "/auth/login",
             data,
         );
+
+        await tokenStorage.save(response.data.token);
+
+        return response;
     },
 };
