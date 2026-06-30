@@ -1,0 +1,42 @@
+export interface RegisterRequest {
+    fullName: string;
+    username: string;
+    email: string;
+    password: string;
+
+    avatar: {
+        uri: string;
+        name: string;
+        type: string;
+    };
+}
+
+export interface LoginRequest {
+    email?: string;
+    username?: string;
+    password: string;
+}
+
+export interface AuthResponse {
+    token: string;
+    user: User;
+}
+
+export interface User {
+    uid: string;
+    fullName: string;
+    username: string;
+    email: string;
+
+    avatar: {
+        url: string;
+        publicId: string;
+    };
+
+    stats: {
+        xp: number;
+        level: number;
+    };
+
+    createdAt: string;
+}
