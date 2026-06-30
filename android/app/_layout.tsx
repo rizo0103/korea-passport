@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { Colors } from '@/src/theme';
+import { AuthProvider } from '@/src/contexts/AuthContext';
 
 export const unstable_settings = {
     anchor: '(tabs)',
@@ -24,19 +25,21 @@ const NavigationTheme = {
 export default function RootLayout() {
 
     return (
-        <ThemeProvider value={NavigationTheme}>
-            <Stack screenOptions={{
-                contentStyle: {
-                    backgroundColor: Colors.background,
-                },
-                headerShown: false,
-            }}>
-                <Stack.Screen name="index" />
-                <Stack.Screen name='auth' />
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-            </Stack>
-            <StatusBar style="auto" />
-        </ThemeProvider>
+        <AuthProvider>
+            <ThemeProvider value={NavigationTheme}>
+                <Stack screenOptions={{
+                    contentStyle: {
+                        backgroundColor: Colors.background,
+                    },
+                    headerShown: false,
+                }}>
+                    <Stack.Screen name="index" />
+                    <Stack.Screen name='auth' />
+                    <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                    <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+                </Stack>
+                <StatusBar style="auto" />
+            </ThemeProvider>
+        </AuthProvider>
     );
 }
