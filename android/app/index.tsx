@@ -15,7 +15,7 @@ export default function Index() {
         } else {
             router.replace("/welcome");
         }
-    }, [user, loading]);
+    }, [user, loading, router]);
 
     return (
         <View>
