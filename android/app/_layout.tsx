@@ -5,6 +5,7 @@ import 'react-native-reanimated';
 
 import { Colors } from '@/src/theme';
 import { AuthProvider } from '@/src/contexts/AuthContext';
+import { Screen } from '@/src/components/layout/Screen';
 
 export const unstable_settings = {
     anchor: '(tabs)',
@@ -26,20 +27,21 @@ export default function RootLayout() {
 
     return (
         <AuthProvider>
-            <ThemeProvider value={NavigationTheme}>
+            <Screen style={{ flex: 1, backgroundColor: Colors.background, margin: 0, padding: 0 }} scrollable>
                 <Stack screenOptions={{
+                    headerShown: false,
                     contentStyle: {
                         backgroundColor: Colors.background,
                     },
-                    headerShown: false,
+                    animation: "fade"
                 }}>
                     <Stack.Screen name="index" />
+                    <Stack.Screen name="welcome" />                
                     <Stack.Screen name='auth' />
                     <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                    <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
                 </Stack>
-                <StatusBar style="auto" />
-            </ThemeProvider>
+                <StatusBar style="light" />
+            </Screen>
         </AuthProvider>
     );
 }

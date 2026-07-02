@@ -1,3 +1,3 @@
 export const API = {
-    BASE_URL: "http://localhost:3000",
+    BASE_URL: process.env.EXPO_PUBLIC_BACKEND_URL || "http://localhost:3000",
 };

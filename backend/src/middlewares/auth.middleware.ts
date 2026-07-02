@@ -1,48 +1,51 @@
-import { NextFunction, Response } from "express";
-import jwt from "jsonwebtoken";
-import { AuthRequest } from "@/types";
+import { NextFunction, Request, Response } from "express";
 import { errorResponse, HttpStatus } from "@/utils/http";
-import { ENV } from "@/config/env";
+import { jwtService } from "@/services/jwt/jwt.service";
 
-export const authMiddleware = (req: AuthRequest, res : Response, next : NextFunction) => {
+export const authMiddleware = (req: Request, res : Response, next : NextFunction) => {
     try {
-        const authHeader = req.headers.authorization;
+        const authorization = req.headers.authorization;
 
-        if (!authHeader) {
+        if (!authorization) {
             return errorResponse({
                 res,
-                message: "No token provided.",
+                message: "Unauthorized.",
                 status: HttpStatus.UNAUTHORIZED,
                 code: "NO_TOKEN",
             });
         }
 
-        const token = authHeader.split(" ")[1];
+        if (!authorization.startsWith(`Bearer `)) {
+            return errorResponse({
+                res,
+                message: "Bad token.",
+                status: HttpStatus.UNAUTHORIZED,
+                code: "INVALID_AUTH_HEADER",
+            });
+        }
+        
+        const [, token] = authorization.split(" ");
 
         if (!token) {
             return errorResponse({
                 res,
-                message: "Invalid token format.",
-                status: HttpStatus.BAD_REQUEST,
-                code: "INVALID_TOKEN_FORMAT",
-            });
+                message: "Invalid token.",
+                status: HttpStatus.UNAUTHORIZED,
+                code: "INVALID_TOKEN",
+            })
         }
 
-        const decoded = jwt.verify(token, ENV.auth.jwtSecret!) as any;
+        const payload = jwtService.verifyToken(token);
 
-        req.user = {
-            uid: decoded.uid,
-            username: decoded.username,
-            email: decoded.email,
-        };
+        req.user = payload;
 
         next();
     } catch (error) {
         return errorResponse({
             res,
-            message: "Unauthorized",
+            message: "Unauthorized.",
             status: HttpStatus.UNAUTHORIZED,
-            code: "UNAUTHORIZED",
+            code: "INVALID_TOKEN",
         })
     }
 };

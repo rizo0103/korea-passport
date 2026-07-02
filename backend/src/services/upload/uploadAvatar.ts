@@ -11,9 +11,13 @@ export const uploadAvatar = async(fileBuffer: Buffer) : Promise < UploadAvatarRe
             (error, result) => {
                 if (error) return reject(error);
 
-                resolve({
-                    url: result?.secure_url,
-                    publicId: result?.public_id,
+                if (!result?.secure_url || !result?.public_id) {
+                    return reject(new Error("Cloudinary upload did not return url or public_id"));
+                }
+
+                return resolve({
+                    url: result.secure_url,
+                    publicId: result.public_id,
                 });
             }
         );

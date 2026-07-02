@@ -1,5 +1,4 @@
-import { tokenStorage } from "../store/token";
-import { AuthResponse, LoginRequest, RegisterRequest } from "../types/auth";
+import { AuthResponse, LoginRequest, RegisterRequest, User } from "../types/auth";
 import { apiClient } from "./client";
 
 export const authApi = {
@@ -11,30 +10,30 @@ export const authApi = {
         formData.append("email", data.email);
         formData.append("password", data.password);
         
-        formData.append("avatar", {
-            uri: data.avatar.uri,
-            name: data.avatar.name,
-            type: data.avatar.type,
-        } as any);
+        if (data.avatar) {
+            formData.append("avatar", {
+                uri: data.avatar.uri,
+                name: data.avatar.name,
+                type: data.avatar.type,
+            } as any);
+        }
 
-        const response = await apiClient.post < AuthResponse > (
+        return await apiClient.post < AuthResponse > (
             "/auth/register",
             formData,
         );
-
-        await tokenStorage.save(response.data.token);
-
-        return response;
     },
 
     async login (data: LoginRequest) {
-        const response = await apiClient.post < AuthResponse > (
+        return await apiClient.post < AuthResponse > (
             "/auth/login",
             data,
         );
+    },
 
-        await tokenStorage.save(response.data.token);
+    async me () {
+        const response = await apiClient.get < User > ("/auth/me");
 
         return response;
-    },
+    }
 };

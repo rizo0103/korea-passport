@@ -5,7 +5,7 @@ export type RegisterParams = {
     username: string,
     email: string,
     password: string,
-    avatarBuffer: Buffer,
+    avatarBuffer?: Buffer,
 };
 
 export type LoginParams = {
@@ -18,8 +18,4 @@ export interface AuthUser {
     uid: string;
     username: string;
     email: string;
-};
-
-export interface AuthRequest extends Request {
-    user?: AuthUser;
 };

@@ -3,15 +3,23 @@ import { Button } from "@/src/components/ui/Button"
 import { Card } from "@/src/components/ui/Card"
 import { Input } from "@/src/components/ui/Input"
 import { Typography } from "@/src/components/ui/Typography"
+import { useAuth } from "@/src/contexts/AuthContext"
 import { getAvatarColor } from "@/src/services/avatarColors"
 import { pickImage } from "@/src/services/imagePicker"
 import { Colors, Spacing } from "@/src/theme"
 import { isFormValid } from "@/src/utils"
+import { router } from "expo-router"
 import { useMemo, useRef, useState } from "react"
-import { TextInput, View } from "react-native"
+import { Alert, TextInput, View } from "react-native"
 
 type RegisterProps = {
     onSwitch: () => void;
+}
+
+type AvatarProps = {
+    uri: string;
+    name: string;
+    type: string;
 }
 
 const fields = [
@@ -22,6 +30,8 @@ const fields = [
 ];
 
 export const Register = ({ onSwitch }: RegisterProps) => {
+    const { register } = useAuth();
+    
     const [ initials, setInitials ] = useState("?");
     const [ inputVals, setInputVals ] = useState({
         fullName: "",
@@ -29,7 +39,8 @@ export const Register = ({ onSwitch }: RegisterProps) => {
         username: "",
         password: "",
     });
-    const [ avatar, setAvatar ] = useState({ uri: "" });
+    const [avatar, setAvatar] = useState < AvatarProps | null > ( null );
+    const [ loading, setLoading ] = useState(false);
 
     const refs = useRef<(TextInput | null)[]>([]);
 
@@ -63,14 +74,20 @@ export const Register = ({ onSwitch }: RegisterProps) => {
 
         if (!image) return ;
 
-        setAvatar({ uri: image.uri });
+        setAvatar({ uri: image.uri, name: `${inputVals.username}-avatar.jpg`, type: "image/jpeg" });
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         try {
-            console.log(inputVals);
-        } catch (error) {
-            console.error(error);
+            setLoading(true);
+            
+            await register({ ...inputVals, avatar : avatar || null });
+
+            router.replace("/(tabs)");
+        } catch (error: any) {
+            Alert.alert("Register failed: ", error.message);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -81,7 +98,7 @@ export const Register = ({ onSwitch }: RegisterProps) => {
             </Typography>
 
             <View style={{ alignItems: "center" }}>
-                <Avatar color={getAvatarColor(inputVals.fullName)} editable={true} initials={initials} onPress={handlePickAvatar} source={avatar.uri ? avatar : null} />
+                <Avatar color={getAvatarColor(inputVals.fullName)} editable={true} initials={initials} onPress={handlePickAvatar} source={avatar?.uri ? avatar : null} />
             </View>
 
             {fields.map((field, index) => (
@@ -120,9 +137,9 @@ export const Register = ({ onSwitch }: RegisterProps) => {
                     }} />
             ))}
 
-            <Button disabled={!formValid} variant="primary" style={{ marginTop: Spacing.lg }} onPress={handleSubmit}>
+            <Button disabled={!formValid && loading} variant="primary" style={{ marginTop: Spacing.lg }} onPress={handleSubmit}>
                 <Typography>
-                    Start Journey
+                    {loading ? "Loading..." : "Start Journey"}
                 </Typography>
             </Button>
 

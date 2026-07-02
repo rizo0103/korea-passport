@@ -8,12 +8,11 @@ export interface RegisterRequest {
         uri: string;
         name: string;
         type: string;
-    };
+    } | null;
 }
 
 export interface LoginRequest {
-    email?: string;
-    username?: string;
+    login: string;
     password: string;
 }
 

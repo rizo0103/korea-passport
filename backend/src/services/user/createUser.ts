@@ -1,8 +1,9 @@
-import { CreateUserParams } from "../../types";
+import { Collections } from "@/config/firestore";
+import { User } from "../../types";
 import { db } from "@/config/firebase";
 
-export const createUser = async (data: CreateUserParams) => {
-    const user = {
+export const createUser = async (data: User) => {
+    const user : User = {
         ...data,
         createdAt: Date.now(),
         stats: {
@@ -10,7 +11,8 @@ export const createUser = async (data: CreateUserParams) => {
             level: 0,
         },
     };
-    await db.collection("users").doc(data.uid).set(user);
+    
+    await db.collection(Collections.USERS).doc(data.uid).set(user);
 
-    return user;
+    return user satisfies User;
 };

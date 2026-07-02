@@ -14,4 +14,8 @@ export const tokenStorage = {
     async remove() {
         await SecureStore.deleteItemAsync(TOKEN_KEY);
     },
+
+    async clear() {
+        return await tokenStorage.remove();
+    }
 };

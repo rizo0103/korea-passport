@@ -1,70 +1,97 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import {
+    createContext,
+    PropsWithChildren,
+    useContext,
+    useEffect,
+    useState,
+} from "react";
+
 import { LoginRequest, RegisterRequest, User } from "../types/auth";
-import { tokenStorage } from "../store/token";
 import { authApi } from "../api/auth";
+import { tokenStorage } from "../store/token";
 
-type AuthContextType = {
+interface AuthContextType {
     user: User | null;
-    token: string | null;
     loading: boolean;
+    isAuthenticated: boolean;
 
-    login: (data: LoginRequest) => Promise < void >;
-    register: (data: RegisterRequest) => Promise < void >;
-    logout: () => Promise < void >;
-};
+    login(data: LoginRequest): Promise < void >;
+    register(data: RegisterRequest): Promise < void >;
+    logout(): Promise < void >;
+}
 
 const AuthContext = createContext < AuthContextType | null > (null);
 
-export const AuthProvider = ({ children } : { children : React.ReactNode}) => {
-    const [ user, setUser ] = useState < User | null > (null);
-    const [ token, setToken ] = useState < string | null > (null);
-    const [ loading, setLoading ] = useState(true);
+export function AuthProvider({ children }: PropsWithChildren) {
+    const [user, setUser] = useState < User | null > (null);
+    const [loading, setLoading] = useState(true);
+
+    const isAuthenticated = !!user;
+
+    const loadCurrentUser = async () => {
+        try {
+            const me = await authApi.me();
+            setUser(me.data);
+        } catch (e) {
+            setUser(null);
+            await tokenStorage.remove();
+            console.error(e);
+        }
+    };
+    const login : AuthContextType["login"] = async (data) => {
+        const loginResponse = await authApi.login(data);
+
+        if (!loginResponse.data.token) {
+            throw new Error("No token returned from login.");
+        }
+
+        await tokenStorage.save(loginResponse.data.token);
+        await loadCurrentUser();
+    };
+
+    const register : AuthContextType["register"] = async (data) => {
+        const registerResponse = await authApi.register(data);
+
+        if (!registerResponse.data.token) {
+            throw new Error("No token returned from register.");
+        }
+
+        await tokenStorage.save(registerResponse.data.token);
+        await loadCurrentUser();
+    };
+
+    const logout : AuthContextType["logout"] = async () => {
+        await tokenStorage.clear();
+        setUser(null);
+    };
 
     useEffect(() => {
-        const loadSession = async () => {
-            const savedToken = await tokenStorage.get();
+        const init = async () => {
+            try {
+                const token = await tokenStorage.get();
 
-            if (savedToken) {
-                setToken(savedToken);
+                if (token) {
+                    await loadCurrentUser();
+                }
+
+            } catch (error) {
+                console.error(error);
+                await tokenStorage.clear();
+            } finally {
+                setLoading(false);
             }
-
-            setLoading(false);
         };
 
-        loadSession();
+        init();
     }, []);
-
-    const login  = async (data : LoginRequest) => {
-        const res = await authApi.login(data);
-
-        await tokenStorage.save(res.data.token);
-
-        setToken(res.data.token);
-        setUser(res.data.user);
-    };
-
-    const register = async (data : RegisterRequest) => {
-        const res = await authApi.register(data);
-
-        await tokenStorage.save(res.data.token);
-
-        setToken(res.data.token);
-        setUser(res.data.user);
-    };
-
-    const logout = async () => {
-        await tokenStorage.remove();
-
-        setToken(null);
-        setUser(null);
-    }
 
     return (
         <AuthContext.Provider
             value={{
                 user,
-                token,
                 loading,
+                isAuthenticated,
+                
                 login,
                 register,
                 logout,
@@ -73,8 +100,7 @@ export const AuthProvider = ({ children } : { children : React.ReactNode}) => {
             {children}
         </AuthContext.Provider>
     );
-
-};
+}
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
@@ -84,4 +110,4 @@ export const useAuth = () => {
     }
 
     return context;
-} 
+};

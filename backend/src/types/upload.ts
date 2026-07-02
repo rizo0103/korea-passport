@@ -1,4 +1,4 @@
-export type UploadAvatarResult = {
-    url: string | undefined;
-    publicId: string | undefined;
+export interface UploadAvatarResult {
+    url: string;
+    publicId: string;
 };
