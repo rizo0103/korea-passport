@@ -4,6 +4,7 @@ export interface User {
     fullName: string;
     username: string;
     email: string;
+    password: string;
 
     avatar?: {
         url: string;
@@ -14,6 +15,8 @@ export interface User {
         xp: number;
         level: number;
     };
+
+    role: "guest" | "user" | "student" | "admin" | "owner";
 
     createdAt?: number | Date;
 }

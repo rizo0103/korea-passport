@@ -1,4 +1,4 @@
 export interface JwtPayload {
     uid: string;
-    role: "user" | "student" | "admin" | "owner";
+    role: "guest" | "user" | "student" | "admin" | "owner";
 };

@@ -9,8 +9,7 @@ export type RegisterParams = {
 };
 
 export type LoginParams = {
-    email?: string;
-    username?: string;
+    login: string;
     password: string;
 }
 
