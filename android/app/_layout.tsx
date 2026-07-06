@@ -1,17 +1,14 @@
 import 'react-native-reanimated';
 
 import { AuthProvider } from '@/src/contexts/AuthContext';
-import RootNavigator from '@/src/navigation/RootNavigator';
-
-export const unstable_settings = {
-    anchor: '(tabs)',
-};
+import { Stack } from 'expo-router';
+import { Colors } from '@/src/theme';
 
 export default function RootLayout() {
 
     return (
         <AuthProvider>
-            <RootNavigator />
+            <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: Colors.background } }} />
         </AuthProvider>
     );
 }

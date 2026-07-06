@@ -1,25 +1,16 @@
+import { Screen } from "@/src/components/layout/Screen";
+import { Typography } from "@/src/components/ui/Typography";
 import { useAuth } from "@/src/contexts/AuthContext";
-import { useRouter } from "expo-router";
-import { useEffect } from "react";
-import { View, Text } from "react-native";
+import { Redirect } from "expo-router";
 
 export default function Index() {
     const { user, loading } = useAuth();
-    const router = useRouter();
 
-    useEffect(() => {
-        if (loading) return;
+    if (loading) return null;
 
-        if (user) {
-            router.replace("/(tabs)");
-        } else {
-            router.replace("/welcome");
-        }
-    }, [user, loading, router]);
+    if (user) {
+        return <Redirect href={"/(protected)/(tabs)/home"} />
+    }
 
-    return (
-        <View>
-            <Text>Loading...</Text>
-        </View>
-    );
+    return <Redirect href={"/(public)/welcome"} />;
 }

@@ -28,7 +28,6 @@ const request = async < T > (
         headers["Authorization"] = `Bearer ${token}`;
     }
 
-    console.log("from src/api/client.ts address: ", API.BASE_URL + endpoint);
     const response = await fetch(API.BASE_URL + endpoint, {
         method,
         headers,

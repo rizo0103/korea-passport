@@ -1,5 +1,5 @@
 import { WelcomeScreen } from "@/src/features/welcome/WelcomeScreen";
 
-export default function WelcomePage () {
-    return <WelcomeScreen />;
+export default function WelcomePage() {
+    return <WelcomeScreen />
 }

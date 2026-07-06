@@ -9,6 +9,7 @@ import {
 import { LoginRequest, RegisterRequest, User } from "../types/auth";
 import { authApi } from "../api/auth";
 import { tokenStorage } from "../store/token";
+import { router } from "expo-router";
 
 interface AuthContextType {
     user: User | null;
@@ -72,11 +73,15 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
                 if (token) {
                     await loadCurrentUser();
+                } else {
+                    logout();
+                    router.push("/welcome");
                 }
 
             } catch (error) {
                 console.error(error);
                 await tokenStorage.clear();
+                router.push("/welcome");
             } finally {
                 setLoading(false);
             }

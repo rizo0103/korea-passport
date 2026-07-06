@@ -25,7 +25,7 @@ export const Avatar = ({ source, size = AvatarSizes.xl, editable, onPress, initi
                         resizeMode="cover"
                     />
                 ) : (
-                    <Typography variant="h1">
+                    <Typography variant="h2">
                         {initials ?? "?"}
                     </Typography>
                 )}
