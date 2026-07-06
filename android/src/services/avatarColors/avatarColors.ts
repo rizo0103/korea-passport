@@ -10,7 +10,7 @@ const hashString = (str: string) => {
     return Math.abs(hash);
 }
 
-export const getAvatarColor = (name: string): string => {
+export const getAvatarColor = (name = "??"): string => {
     if (!name) return AvatarColors[0];
 
     const hash = hashString(name);
