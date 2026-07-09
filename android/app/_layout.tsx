@@ -8,7 +8,9 @@ export default function RootLayout() {
 
     return (
         <AuthProvider>
-            <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: Colors.background } }} />
+            <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: Colors.background } }}>
+                <Stack.Screen name="index" />
+            </Stack>
         </AuthProvider>
     );
 }

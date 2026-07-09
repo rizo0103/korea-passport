@@ -8,7 +8,6 @@ import { getAvatarColor } from "@/src/services/avatarColors"
 import { pickImage } from "@/src/services/imagePicker"
 import { Colors, Spacing } from "@/src/theme"
 import { isFormValid } from "@/src/utils"
-import { router } from "expo-router"
 import { useMemo, useRef, useState } from "react"
 import { Alert, TextInput, View } from "react-native"
 
@@ -83,7 +82,6 @@ export const Register = ({ onSwitch }: RegisterProps) => {
             
             await register({ ...inputVals, avatar : avatar || null });
 
-            router.replace("/(tabs)");
         } catch (error: any) {
             Alert.alert("Register failed: ", error.message);
         } finally {

@@ -5,7 +5,6 @@ import { Typography } from "@/src/components/ui/Typography";
 import { useAuth } from "@/src/contexts/AuthContext";
 import { Colors, Spacing } from "@/src/theme";
 import { isFormValid } from "@/src/utils";
-import { router } from "expo-router";
 import { useRef, useState } from "react";
 import { Alert, TextInput } from "react-native";
 
@@ -33,7 +32,6 @@ export const Login = ({ onSwitch }: LoginProps) => {
                 password
             });
 
-            router.replace("/(tabs)");
         } catch (error : any) {
             Alert.alert("Login failed ", error.message);
         } finally {

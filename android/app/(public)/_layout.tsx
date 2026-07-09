@@ -10,6 +10,9 @@ export default function PublicLayout() {
     }
     
     return (
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: Colors.background } }} />
+        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: Colors.background } }}>
+            <Stack.Screen name="welcome" />
+            <Stack.Screen name="auth" />
+        </Stack>
     );
 }

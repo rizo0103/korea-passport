@@ -1,9 +1,7 @@
-import { Screen } from "@/src/components/layout/Screen";
-import { Typography } from "@/src/components/ui/Typography";
 import { useAuth } from "@/src/contexts/AuthContext";
 import { Redirect } from "expo-router";
 
-export default function Index() {
+export default function IndexPage() {
     const { user, loading } = useAuth();
 
     if (loading) return null;
