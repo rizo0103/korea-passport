@@ -12,7 +12,8 @@ import { Typography } from "@/src/components/ui/Typography";
 import Animated, {
     FadeIn,
     FadeInDown,
-    FadeInUp,
+    FadeInLeft,
+    FadeInRight,
 } from "react-native-reanimated";
 
 import { useWindowDimensions, View } from "react-native";
@@ -96,7 +97,9 @@ export const WelcomeScreen = () => {
                     paddingVertical: contentPaddingVertical,
                 }}
             >
-                {/* TOP */}
+                {/* ================================
+                    TOP
+                ================================= */}
 
                 <View
                     style={{
@@ -106,7 +109,8 @@ export const WelcomeScreen = () => {
                 >
                     <Animated.View
                         entering={FadeInDown
-                            .duration(650)
+                            .duration(800)
+                            .delay(100)
                             .springify()
                         }
                     >
@@ -114,7 +118,9 @@ export const WelcomeScreen = () => {
                     </Animated.View>
                 </View>
 
-                {/* BOTTOM */}
+                {/* ================================
+                    BOTTOM
+                ================================= */}
 
                 <View
                     style={{
@@ -125,9 +131,9 @@ export const WelcomeScreen = () => {
                     {/* FEATURES */}
 
                     <Animated.View
-                        entering={FadeInUp
-                            .duration(600)
-                            .delay(350)
+                        entering={FadeInLeft
+                            .duration(750)
+                            .delay(250)
                             .springify()
                         }
                     >
@@ -137,9 +143,9 @@ export const WelcomeScreen = () => {
                     {/* ACTIONS */}
 
                     <Animated.View
-                        entering={FadeInUp
-                            .duration(600)
-                            .delay(500)
+                        entering={FadeInRight
+                            .duration(750)
+                            .delay(450)
                             .springify()
                         }
                     >
@@ -167,7 +173,7 @@ export const WelcomeScreen = () => {
 
                     <Animated.View
                         entering={FadeIn
-                            .duration(500)
+                            .duration(600)
                             .delay(700)
                         }
                     >
