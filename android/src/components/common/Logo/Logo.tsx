@@ -1,3 +1,4 @@
+import { IconSizes } from "@/src/theme";
 import { Image, ImageStyle, StyleProp } from "react-native";
 
 type LogoProps = {
@@ -5,7 +6,7 @@ type LogoProps = {
     style?: StyleProp < ImageStyle >;
 }
 
-export const Logo = ({ size = 120, style } : LogoProps) => {
+export const Logo = ({ size = 100, style } : LogoProps) => {
     return (
         <Image
             source={require("@/assets/images/Logo.png")}

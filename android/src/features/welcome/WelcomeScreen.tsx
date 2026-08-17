@@ -1,57 +1,207 @@
 import { Screen } from "@/src/components/layout/Screen";
 import { LogoSection } from "./components/LogoSection";
 import { ActionSection } from "./components/ActionSection";
-import { router } from "expo-router";
-import { Colors, IconSizes, Spacing } from "@/src/theme";
 import { FeaturesSection } from "./components/FeaturesSection";
-import { Icon } from "@/src/components/ui/Icon";
-import { View } from "react-native";
+
+import { router } from "expo-router";
+
+import { Colors, Spacing } from "@/src/theme";
+
 import { Typography } from "@/src/components/ui/Typography";
 
+import Animated, {
+    FadeIn,
+    FadeInDown,
+    FadeInUp,
+} from "react-native-reanimated";
+
+import { useWindowDimensions, View } from "react-native";
+
 export const WelcomeScreen = () => {
+    const { width, height } = useWindowDimensions();
+
+    /*
+     * ================================
+     * Responsive
+     * ================================
+     */
+
+    const isSmallPhone = height < 700;
+    const isVerySmallPhone = height < 640;
+    const isTablet = width >= 768;
+
+    /*
+     * ================================
+     * Spacing
+     * ================================
+     */
+
+    const horizontalPadding = isTablet
+        ? Spacing["2xl"]
+        : Spacing.md;
+
+    const topGap = isVerySmallPhone
+        ? Spacing.sm
+        : isSmallPhone
+            ? Spacing.md
+            : isTablet
+                ? Spacing.xl
+                : Spacing.lg;
+
+    const sectionGap = isVerySmallPhone
+        ? Spacing.sm
+        : isSmallPhone
+            ? Spacing.md
+            : isTablet
+                ? Spacing.xl
+                : Spacing.lg;
+
+    const bottomMargin = isVerySmallPhone
+        ? Spacing.sm
+        : isSmallPhone
+            ? Spacing.md
+            : Spacing.lg;
+
+    const contentPaddingVertical = isVerySmallPhone
+        ? 2
+        : isSmallPhone
+            ? Spacing.xs
+            : Spacing.sm;
+
+    /*
+     * ================================
+     * Content width
+     * ================================
+     */
+
+    const contentWidth = isTablet
+        ? Math.min(width * 0.72, 650)
+        : "100%";
+
     return (
         <Screen
-            scrollable
+            scrollable={false}
             background={require("@/assets/images/seoul-busan-bg.png")}
-            style={{ flex: 1 }}
+            style={{
+                flex: 1,
+                paddingHorizontal: horizontalPadding,
+            }}
         >
-            <View style={{ flex: 1, justifyContent: "space-between" }}>
-
+            <View
+                style={{
+                    flex: 1,
+                    width: contentWidth,
+                    alignSelf: "center",
+                    justifyContent: "space-between",
+                    paddingVertical: contentPaddingVertical,
+                }}
+            >
                 {/* TOP */}
-                <View style={{ alignItems: "center", gap: Spacing["2xl"] }}>
-                    <LogoSection />
 
-                    <Icon
-                        source={require("@/assets/icons/passport.png")}
-                        size={IconSizes["3xl"]}
-                    />
+                <View
+                    style={{
+                        alignItems: "center",
+                        gap: topGap,
+                    }}
+                >
+                    <Animated.View
+                        entering={FadeInDown
+                            .duration(650)
+                            .springify()
+                        }
+                    >
+                        <LogoSection />
+                    </Animated.View>
                 </View>
 
                 {/* BOTTOM */}
-                <View style={{ gap: Spacing.lg }}>
-                    <FeaturesSection />
 
-                    <ActionSection
-                        onStart={() => router.push({
-                            pathname: "/auth",
-                            params: { mode: "register" }
-                        })}
+                <View
+                    style={{
+                        gap: sectionGap,
+                        marginTop: bottomMargin,
+                    }}
+                >
+                    {/* FEATURES */}
 
-                        onSignIn={() => router.push({
-                            pathname: "/auth",
-                            params: { mode: "login" }
-                        })}
-                    />
+                    <Animated.View
+                        entering={FadeInUp
+                            .duration(600)
+                            .delay(350)
+                            .springify()
+                        }
+                    >
+                        <FeaturesSection />
+                    </Animated.View>
+
+                    {/* ACTIONS */}
+
+                    <Animated.View
+                        entering={FadeInUp
+                            .duration(600)
+                            .delay(500)
+                            .springify()
+                        }
+                    >
+                        <ActionSection
+                            onStart={() =>
+                                router.push({
+                                    pathname: "/auth",
+                                    params: {
+                                        mode: "register",
+                                    },
+                                })
+                            }
+                            onSignIn={() =>
+                                router.push({
+                                    pathname: "/auth",
+                                    params: {
+                                        mode: "login",
+                                    },
+                                })
+                            }
+                        />
+                    </Animated.View>
+
+                    {/* TERMS */}
+
+                    <Animated.View
+                        entering={FadeIn
+                            .duration(500)
+                            .delay(700)
+                        }
+                    >
+                        <Typography
+                            variant="caption"
+                            align="center"
+                            color={Colors.textSecondary}
+                        >
+                            By continuing you agree to{"\n"}
+
+                            <Typography
+                                variant="caption"
+                                align="center"
+                                color={Colors.accentLight}
+                            >
+                                Terms of Service{" "}
+
+                                <Typography
+                                    variant="caption"
+                                    color={Colors.textSecondary}
+                                >
+                                    and{" "}
+                                </Typography>
+
+                                <Typography
+                                    variant="caption"
+                                    color={Colors.primaryLight}
+                                >
+                                    Privacy Policy
+                                </Typography>
+                            </Typography>
+                        </Typography>
+                    </Animated.View>
                 </View>
-
-                <Typography variant="caption" align="center">
-                    By continuing you are agree with{'\n'}
-                    <Typography variant="caption" color={Colors.accentLight}>
-                        Terms of Service 
-                        <Typography variant="caption">and</Typography> 
-                        <Typography variant="caption" color={Colors.primaryLight}>Privacy Policy</Typography>
-                    </Typography>
-                </Typography>
             </View>
         </Screen>
     );

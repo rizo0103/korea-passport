@@ -7,17 +7,17 @@ import { Colors, Spacing } from "@/src/theme";
 export const LogoSection = () => {
     return (
         <View style={styles.container}>
-            <Logo style={{ marginTop: Spacing["2xl"] }} />
+            <Logo style={{ marginTop: Spacing["sm"], marginBottom: -1, }} />
 
             <View style={{ alignItems: "center" }}>
-            <Typography variant="h1">
+            <Typography variant="h2">
                     Korea{" "}
-                <Typography variant="h1" color={Colors.primaryLight}>
+                <Typography variant="h2" color={Colors.primaryLight}>
                     Passport
                 </Typography>
             </Typography>
 
-                <Typography variant="body" color={Colors.textPrimary} style={{ marginTop: Spacing.md }}>
+                <Typography variant="body" color={Colors.textPrimary} style={{ marginTop: Spacing.sm }}>
                     Explore Korea
                 </Typography>
                 <Typography variant="body" color={Colors.textPrimary}>
