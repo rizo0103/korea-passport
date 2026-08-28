@@ -17,6 +17,8 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { useWindowDimensions, View } from "react-native";
+import { ServerStatus } from "@/src/components/common/ServerStatus";
+import { API } from "@/src/config/api";
 
 export const WelcomeScreen = () => {
     const { width, height } = useWindowDimensions();
@@ -88,6 +90,8 @@ export const WelcomeScreen = () => {
                 paddingHorizontal: horizontalPadding,
             }}
         >
+            <ServerStatus url={`${API.BASE_URL}/health`} />
+            
             <View
                 style={{
                     flex: 1,

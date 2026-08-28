@@ -7,7 +7,6 @@ export interface RegisterRequest {
     avatar: {
         uri: string;
         name: string;
-        type: string;
     } | null;
 }
 

@@ -1,4 +1,3 @@
-import { IconSizes } from "@/src/theme";
 import { Image, ImageStyle, StyleProp } from "react-native";
 
 type LogoProps = {

@@ -14,7 +14,6 @@ export const authApi = {
             formData.append("avatar", {
                 uri: data.avatar.uri,
                 name: data.avatar.name,
-                type: data.avatar.type,
             } as any);
         }
 

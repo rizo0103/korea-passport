@@ -1,14 +1,19 @@
 import { ReactNode } from "react";
-import { Colors } from "@/src/theme";
+
 import {
     ImageBackground,
     ImageSourcePropType,
+    KeyboardAvoidingView,
+    Platform,
     ScrollView,
     View,
     StyleProp,
     ViewStyle,
 } from "react-native";
+
 import { SafeAreaView } from "react-native-safe-area-context";
+
+import { Colors } from "@/src/theme";
 
 type ScreenProps = {
     children: ReactNode;
@@ -23,21 +28,31 @@ export const Screen = ({
     scrollable = false,
     background,
 }: ScreenProps) => {
-    const Container = scrollable ? ScrollView : View;
 
-    const content = (
-        <Container
-            contentContainerStyle={ scrollable ? { flexGrow: 1 } : undefined }
-            style={[
-                {
-                    flex: 1,
-                    padding: 16,
-                },
-                style,
-            ]}
+    const content = scrollable ? (
+        <ScrollView
+            style={{ flex: 1 }}
+            contentContainerStyle={{
+                flexGrow: 1,
+            }}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode={
+                Platform.OS === "ios"
+                    ? "interactive"
+                    : "on-drag"
+            }
+            showsVerticalScrollIndicator={false}
         >
             {children}
-        </Container>
+        </ScrollView>
+    ) : (
+        <View
+            style={{
+                flex: 1,
+            }}
+        >
+            {children}
+        </View>
     );
 
     return (
@@ -46,24 +61,45 @@ export const Screen = ({
                 flex: 1,
                 backgroundColor: Colors.background,
             }}
-            edges={[ 'left', "right", "bottom" ]}
+            edges={["left", "right", "bottom"]}
         >
-            {background ? (
-                <ImageBackground
-                    source={background}
-                    style={{ flex: 1 }}
-                    resizeMode="cover"
-                >
-                    <View style={{
-                        flex: 1,
-                        backgroundColor: "rgba(18,18,18,0.55)",
-                    }}>
-                    {content}
-                    </View>
-                </ImageBackground>
-            ) : (
-                content
-            )}
+            <KeyboardAvoidingView
+                style={{
+                    flex: 1,
+                }}
+                behavior={
+                    Platform.OS === "ios"
+                        ? "padding"
+                        : "height"
+                }
+                keyboardVerticalOffset={
+                    Platform.OS === "ios"
+                        ? 0
+                        : 20
+                }
+            >
+                {background ? (
+                    <ImageBackground
+                        source={background}
+                        style={{
+                            flex: 1,
+                        }}
+                        resizeMode="cover"
+                    >
+                        <View
+                            style={{
+                                flex: 1,
+                                backgroundColor:
+                                    "rgba(18,18,18,0.55)",
+                            }}
+                        >
+                            {content}
+                        </View>
+                    </ImageBackground>
+                ) : (
+                    content
+                )}
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 };
