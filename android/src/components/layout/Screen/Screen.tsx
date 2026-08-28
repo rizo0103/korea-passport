@@ -61,7 +61,7 @@ export const Screen = ({
                 flex: 1,
                 backgroundColor: Colors.background,
             }}
-            edges={["left", "right", "bottom"]}
+            edges={["left", "right"]}
         >
             <KeyboardAvoidingView
                 style={{

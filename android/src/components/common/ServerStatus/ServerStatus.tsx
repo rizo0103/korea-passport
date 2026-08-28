@@ -34,8 +34,6 @@ export const ServerStatus = ({
                 signal: controller.signal,
             });
 
-            console.log("Server status check response:", response);
-
             clearTimeout(timeout);
 
             setStatus(response.ok ? "online" : "offline");
@@ -58,7 +56,7 @@ export const ServerStatus = ({
             exiting={FadeOut.duration(200)}
             style={{
                 position: "absolute",
-                top: Spacing.lg,
+                top: Spacing["2xl"],
                 right: Spacing.lg,
 
                 flexDirection: "row",
