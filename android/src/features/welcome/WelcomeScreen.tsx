@@ -82,60 +82,30 @@ export const WelcomeScreen = () => {
     });
 
     return (
-        <Screen
-            scrollable={false}
-            background={require("@/assets/images/seoul-busan-bg.png")}
-            style={styles.screen}
-        >
-            <ServerStatus
-                url={`${API.BASE_URL}/health`}
-            />
+        <Screen scrollable={false} background={ require("@/assets/images/seoul-busan-bg.png") } style={ styles.screen }>
+            <ServerStatus url={`${API.BASE_URL}/health`} />
 
-            <Animated.View
-                style={styles.content}
-            >
+            <Animated.View style={ styles.content }>
                 {/* TOP */}
 
-                <Animated.View
-                    style={styles.topSection}
-                >
-                    <Animated.View
-                        entering={FadeInDown
-                            .duration(800)
-                            .delay(100)
-                            .springify()
-                        }
-                    >
+                <Animated.View style={ styles.topSection }>
+                    <Animated.View entering={ FadeInDown.duration(800).delay(100).springify() }>
                         <LogoSection />
                     </Animated.View>
                 </Animated.View>
 
                 {/* BOTTOM */}
 
-                <Animated.View
-                    style={styles.bottomSection}
-                >
+                <Animated.View style={ styles.bottomSection }>
                     {/* FEATURES */}
 
-                    <Animated.View
-                        entering={FadeInLeft
-                            .duration(750)
-                            .delay(250)
-                            .springify()
-                        }
-                    >
+                    <Animated.View entering={ FadeInLeft.duration(750).delay(250).springify() }>
                         <FeaturesSection />
                     </Animated.View>
 
                     {/* ACTIONS */}
 
-                    <Animated.View
-                        entering={FadeInRight
-                            .duration(750)
-                            .delay(450)
-                            .springify()
-                        }
-                    >
+                    <Animated.View entering={ FadeInRight.duration(750).delay(450).springify() }>
                         <ActionSection
                             onStart={() =>
                                 router.push({
@@ -158,38 +128,18 @@ export const WelcomeScreen = () => {
 
                     {/* TERMS */}
 
-                    <Animated.View
-                        entering={FadeIn
-                            .duration(600)
-                            .delay(700)
-                        }
-                        style={styles.terms}
-                    >
-                        <Typography
-                            variant="caption"
-                            align="center"
-                            color={Colors.textSecondary}
-                        >
+                    <Animated.View entering={FadeIn.duration(600).delay(700) } style={styles.terms}>
+                        <Typography variant="caption" align="center" color={Colors.textSecondary}>
                             By continuing you agree to{"\n"}
 
-                            <Typography
-                                variant="caption"
-                                align="center"
-                                color={Colors.accentLight}
-                            >
+                            <Typography variant="caption" align="center" color={Colors.accentLight}>
                                 Terms of Service{" "}
 
-                                <Typography
-                                    variant="caption"
-                                    color={Colors.textSecondary}
-                                >
-                                    and{" "}
+                                <Typography variant="caption" color={Colors.textSecondary}>
+                                    and {" "}
                                 </Typography>
 
-                                <Typography
-                                    variant="caption"
-                                    color={Colors.primaryLight}
-                                >
+                                <Typography variant="caption" color={Colors.primaryLight}>
                                     Privacy Policy
                                 </Typography>
                             </Typography>
