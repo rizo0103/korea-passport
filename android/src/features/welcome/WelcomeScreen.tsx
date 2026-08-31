@@ -1,13 +1,16 @@
 import { Screen } from "@/src/components/layout/Screen";
+
 import { LogoSection } from "./components/LogoSection";
 import { ActionSection } from "./components/ActionSection";
 import { FeaturesSection } from "./components/FeaturesSection";
+import { createWelcomeStyles } from "./WelcomeScreen.styles";
 
 import { router } from "expo-router";
 
 import { Colors, Spacing } from "@/src/theme";
-
 import { Typography } from "@/src/components/ui/Typography";
+import { ServerStatus } from "@/src/components/common/ServerStatus";
+import { API } from "@/src/config/api";
 
 import Animated, {
     FadeIn,
@@ -16,28 +19,18 @@ import Animated, {
     FadeInRight,
 } from "react-native-reanimated";
 
-import { useWindowDimensions, View } from "react-native";
-import { ServerStatus } from "@/src/components/common/ServerStatus";
-import { API } from "@/src/config/api";
+import { useWindowDimensions } from "react-native";
 
 export const WelcomeScreen = () => {
     const { width, height } = useWindowDimensions();
 
-    /*
-     * ================================
-     * Responsive
-     * ================================
-     */
+    //* Responsive
 
     const isSmallPhone = height < 700;
     const isVerySmallPhone = height < 640;
     const isTablet = width >= 768;
 
-    /*
-     * ================================
-     * Spacing
-     * ================================
-     */
+    //* Responsive spacing
 
     const horizontalPadding = isTablet
         ? Spacing["2xl"]
@@ -71,45 +64,40 @@ export const WelcomeScreen = () => {
             ? Spacing.xs
             : Spacing.sm;
 
-    /*
-     * ================================
-     * Content width
-     * ================================
-     */
+    //* Content width
 
     const contentWidth = isTablet
         ? Math.min(width * 0.72, 650)
         : "100%";
 
+    //*  Styles
+
+    const styles = createWelcomeStyles({
+        horizontalPadding,
+        contentWidth,
+        contentPaddingVertical,
+        topGap,
+        sectionGap,
+        bottomMargin,
+    });
+
     return (
         <Screen
             scrollable={false}
             background={require("@/assets/images/seoul-busan-bg.png")}
-            style={{
-                flex: 1,
-                paddingHorizontal: horizontalPadding,
-            }}
+            style={styles.screen}
         >
-            <ServerStatus url={`${API.BASE_URL}/health`} />
-            
-            <View
-                style={{
-                    flex: 1,
-                    width: contentWidth,
-                    alignSelf: "center",
-                    justifyContent: "space-between",
-                    paddingVertical: contentPaddingVertical,
-                }}
-            >
-                {/* ================================
-                    TOP
-                ================================= */}
+            <ServerStatus
+                url={`${API.BASE_URL}/health`}
+            />
 
-                <View
-                    style={{
-                        alignItems: "center",
-                        gap: topGap,
-                    }}
+            <Animated.View
+                style={styles.content}
+            >
+                {/* TOP */}
+
+                <Animated.View
+                    style={styles.topSection}
                 >
                     <Animated.View
                         entering={FadeInDown
@@ -120,17 +108,12 @@ export const WelcomeScreen = () => {
                     >
                         <LogoSection />
                     </Animated.View>
-                </View>
+                </Animated.View>
 
-                {/* ================================
-                    BOTTOM
-                ================================= */}
+                {/* BOTTOM */}
 
-                <View
-                    style={{
-                        gap: sectionGap,
-                        marginTop: bottomMargin,
-                    }}
+                <Animated.View
+                    style={styles.bottomSection}
                 >
                     {/* FEATURES */}
 
@@ -180,7 +163,7 @@ export const WelcomeScreen = () => {
                             .duration(600)
                             .delay(700)
                         }
-                        style={{ marginBottom: Spacing.md }}
+                        style={styles.terms}
                     >
                         <Typography
                             variant="caption"
@@ -212,8 +195,8 @@ export const WelcomeScreen = () => {
                             </Typography>
                         </Typography>
                     </Animated.View>
-                </View>
-            </View>
+                </Animated.View>
+            </Animated.View>
         </Screen>
     );
 };
