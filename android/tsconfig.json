@@ -18,5 +18,6 @@
     ".expo/types/**/*.js",
     ".expo/types/**/*.jsx",
     "expo-env.d.ts",
-  ]
+  ],
+  "exclude": ["node_modules"],
 }

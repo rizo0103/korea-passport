@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import Animated, {
-    FadeIn,
-    FadeOut,
+    FadeInDown,
+    FadeOutUp,
 } from "react-native-reanimated";
 
 import { Typography } from "@/src/components/ui/Typography";
 import { Colors, Radius, Spacing } from "@/src/theme";
 import { API } from "@/src/config/api";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type ServerStatusProps = {
     url?: string;
@@ -16,6 +17,8 @@ type ServerStatusProps = {
 export const ServerStatus = ({
     url = `${API.BASE_URL}/health`,
 }: ServerStatusProps) => {
+    const insets = useSafeAreaInsets();
+
     const [status, setStatus] = useState<
         "checking" | "online" | "offline"
     >("checking");
@@ -52,11 +55,11 @@ export const ServerStatus = ({
 
     return (
         <Animated.View
-            entering={FadeIn.duration(400)}
-            exiting={FadeOut.duration(200)}
+            entering={FadeInDown.duration(400)}
+            exiting={FadeOutUp.duration(200)}
             style={{
                 position: "absolute",
-                top: Spacing["2xl"],
+                top: insets.top + Spacing.sm,
                 right: Spacing.lg,
 
                 flexDirection: "row",
