@@ -180,6 +180,7 @@ export const WelcomeScreen = () => {
                             .duration(600)
                             .delay(700)
                         }
+                        style={{ marginBottom: Spacing.md }}
                     >
                         <Typography
                             variant="caption"
