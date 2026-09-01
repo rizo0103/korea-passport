@@ -6,7 +6,7 @@
 | ------------ | ------------------------------ |
 | Version      | 1.0.0                          |
 | Status       | Draft                          |
-| Authors      | Muhammadrizo Shokirov, ChatGPT |
+| Authors      | Muhammadrizo Shokirov          |
 | Last Updated | 2026-06-18                     |
 
 ---

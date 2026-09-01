@@ -1,3 +1,6 @@
+// TODO: Add web socket connection to check server status in real-time
+
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import Animated, {
@@ -31,6 +34,7 @@ export const ServerStatus = ({
                 () => controller.abort(),
                 5000
             );
+
 
             const response = await fetch(url, {
                 method: "GET",

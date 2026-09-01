@@ -5,7 +5,7 @@
 | Project      | Korea Passport                  |
 | Version      | 1.0.0                           |
 | Status       | Approved                        |
-| Author       | Muhammadrizo Shokirov & ChatGPT |
+| Author       | Muhammadrizo Shokirov           |
 | Last Updated | 2026-06-18                      |
 
 ---
