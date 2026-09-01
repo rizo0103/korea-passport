@@ -6,7 +6,7 @@ import { DailyTasks } from "./components/DailyTasks"
 export const Home = () => {
 
     return (
-        <Screen background={require("@/assets/images/tabs/home.png")} scrollable>
+        <Screen background={require("@/assets/images/tabs/home.jpg")} scrollable>
             <Header />
             <PassportStatistics />
             <DailyTasks />

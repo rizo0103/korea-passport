@@ -89,8 +89,8 @@ export const Screen = ({
                         <View
                             style={{
                                 flex: 1,
-                                backgroundColor:
-                                    "rgba(18,18,18,0.55)",
+                                // backgroundColor:
+                                //     "rgba(18,18,18,0.55)",
                             }}
                         >
                             {content}
