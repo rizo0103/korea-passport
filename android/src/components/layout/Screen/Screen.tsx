@@ -9,17 +9,20 @@ import {
     View,
     StyleProp,
     ViewStyle,
+    StyleSheet,
 } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Colors } from "@/src/theme";
+import { PassportBackground } from "@/src/components/layout/backgrounds/PassportBackground";
 
 type ScreenProps = {
     children: ReactNode;
     style?: StyleProp<ViewStyle>;
     scrollable?: boolean;
     background?: ImageSourcePropType;
+    svgBackground?: boolean;
 };
 
 export const Screen = ({
@@ -27,8 +30,8 @@ export const Screen = ({
     style,
     scrollable = false,
     background,
+    svgBackground = false,
 }: ScreenProps) => {
-
     const content = scrollable ? (
         <ScrollView
             style={{ flex: 1 }}
@@ -46,11 +49,7 @@ export const Screen = ({
             {children}
         </ScrollView>
     ) : (
-        <View
-            style={{
-                flex: 1,
-            }}
-        >
+        <View style={{ flex: 1 }}>
             {children}
         </View>
     );
@@ -78,27 +77,37 @@ export const Screen = ({
                         : 20
                 }
             >
-                {background ? (
-                    <ImageBackground
-                        source={background}
-                        style={{
-                            flex: 1,
-                        }}
-                        resizeMode="cover"
-                    >
-                        <View
+                <View
+                    style={{
+                        flex: 1,
+                    }}
+                >
+                    {/* SVG background */}
+                    {svgBackground && <PassportBackground />}
+
+                    {/* Image background */}
+                    {background && (
+                        <ImageBackground
+                            source={background}
                             style={{
-                                flex: 1,
-                                // backgroundColor:
-                                //     "rgba(18,18,18,0.55)",
+                                ...StyleSheet.absoluteFillObject,
                             }}
-                        >
-                            {content}
-                        </View>
-                    </ImageBackground>
-                ) : (
-                    content
-                )}
+                            resizeMode="cover"
+                        />
+                    )}
+
+                    {/* Content */}
+                    <View
+                        style={[
+                            {
+                                flex: 1,
+                            },
+                            style,
+                        ]}
+                    >
+                        {content}
+                    </View>
+                </View>
             </KeyboardAvoidingView>
         </SafeAreaView>
     );

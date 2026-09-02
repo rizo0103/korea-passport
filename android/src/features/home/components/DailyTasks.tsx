@@ -88,7 +88,7 @@ export const DailyTasks = () => {
                             }}
                         >
                             <Icon
-                                source={require("@/assets/icons/3d-reward.png")}
+                                source={require("@/assets/icons/reward.png")}
                                 size={IconSizes.lg}
                             />
 

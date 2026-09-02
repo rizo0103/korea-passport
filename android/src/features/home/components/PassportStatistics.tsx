@@ -43,7 +43,7 @@ export const PassportStatistics = () => {
             </View>
 
             <View style={{ flex: 0.9, alignItems: "center", justifyContent: "center", }} >
-                <Icon source={require("@/assets/icons/3d-reward.png")} size={IconSizes.xl} style={{ margin: 0 }} />
+                <Icon source={require("@/assets/icons/reward.png")} size={IconSizes.xl} style={{ margin: 0 }} />
 
                 <Typography align="center" variant="title" style={{ marginTop: Spacing.xs, }} >
                     1200
