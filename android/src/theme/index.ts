@@ -8,3 +8,4 @@ export * from "./typography";
 export * from "./avatarSizes";
 export * from "./avatarColors";
 export * from "./iconSizes";
+export * from "./fonts";

@@ -20,11 +20,11 @@ export const PassportStatistics = () => {
             </View>
 
             <View style={{ flex: 2.8 }}>
-                <Typography variant="body" color={Colors.textPrimary} >
+                <Typography variant="title" color={Colors.textPrimary} >
                     Passport Level
                 </Typography>
 
-                <View style={{ flexDirection: "row", alignItems: "center", marginVertical: Spacing.xxs, }}>
+                <View style={{ flexDirection: "row", alignItems: "center", marginVertical: Spacing.xxs }}>
                     <Typography variant="h3">
                         {user?.stats.level}
                     </Typography>
@@ -45,11 +45,11 @@ export const PassportStatistics = () => {
             <View style={{ flex: 0.9, alignItems: "center", justifyContent: "center", }} >
                 <Icon source={require("@/assets/icons/reward.png")} size={IconSizes.xl} style={{ margin: 0 }} />
 
-                <Typography align="center" variant="title" style={{ marginTop: Spacing.xs, }} >
+                <Typography align="center" variant="title" style={{ marginTop: Spacing.xs }} >
                     1200
                 </Typography>
 
-                <Typography align="center" variant="caption" color={Colors.textSecondary}>
+                <Typography align="center" variant="title" color={Colors.textSecondary}>
                     XP left
                 </Typography>
             </View>

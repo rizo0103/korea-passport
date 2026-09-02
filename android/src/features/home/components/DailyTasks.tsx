@@ -93,7 +93,7 @@ export const DailyTasks = () => {
                             />
 
                             <Typography
-                                variant="caption"
+                                // variant="caption"
                                 color={Colors.textSecondary}
                             >
                                 +{mission.reward}

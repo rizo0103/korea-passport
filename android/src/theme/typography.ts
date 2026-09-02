@@ -2,43 +2,51 @@
 
 export const TypographyTheme = {
     "h1": {
+        fontFamily: "comic",
         fontSize: 32,
-        fontWeight: "bold",
+        fontWeight: "normal",
         lineHeight: 40,
     },
     "h2": {
+        fontFamily: "comic",
         fontSize: 24,
-        fontWeight: "bold",
+        fontWeight: "normal",
         lineHeight: 32,
     },
     "h3": {
+        fontFamily: "comic",
         fontSize: 18,
-        fontWeight: "bold",
+        fontWeight: "normal",
         lineHeight: 28,
     },
     "title": {
+        fontFamily: "comic",
         fontSize: 16,
-        fontWeight: "bold",
+        fontWeight: "normal",
         lineHeight: 24,
     },
     "body": {
+        fontFamily: "comic",
         fontSize: 14,
         fontWeight: "normal",
         lineHeight: 20,
     },
     "bodySmall": {
+        fontFamily: "readable",
         fontSize: 12,
         fontWeight: "normal",
         lineHeight: 16,
     },
     "caption": {
+        fontFamily: "readable",
         fontSize: 12,
         fontWeight: "normal",
         lineHeight: 16,
     },
     "button": {
+        fontFamily: "comic",
         fontSize: 14,
-        fontWeight: "bold",
+        fontWeight: "normal",
         lineHeight: 20,
     }
-} satisfies Record < string, { fontSize: number, fontWeight: "normal" | "bold", lineHeight: number } >;
+} satisfies Record < string, { fontSize: number, fontWeight: "normal" | "normal", lineHeight: number, fontFamily: string } >;
