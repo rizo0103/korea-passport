@@ -20,7 +20,7 @@ export const Typography = ({ variant = "body", children, color = Colors.textPrim
     return (
         <Text onPress={onPress} style={[
             TypographyTheme[variant],
-            { color, textAlign: align },
+            { color, textAlign: align, fontFamily: TypographyTheme[variant].fontFamily },
             style
         ]}>
             {children}

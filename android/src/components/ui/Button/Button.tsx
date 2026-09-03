@@ -2,7 +2,15 @@
 import { Colors } from "@/src/theme";
 import { ReactNode, useEffect } from "react";
 import { Pressable } from "react-native";
-import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withSpring, withTiming } from "react-native-reanimated";
+
+import Animated, {
+    interpolateColor,
+    useAnimatedStyle,
+    useSharedValue,
+    withSpring,
+    withTiming,
+} from "react-native-reanimated";
+
 import { styles } from "./Button.styles";
 
 type ButtonProps = {
@@ -12,9 +20,16 @@ type ButtonProps = {
     activeOpacity?: number;
     style?: any;
     disabled?: boolean;
-}
+};
 
-export const Button = ({ children, onPress, variant = "primary", activeOpacity = 0.7, style, disabled = false }: ButtonProps) => {
+export const Button = ({
+    children,
+    onPress,
+    variant = "primary",
+    activeOpacity = 0.7,
+    style,
+    disabled = false,
+}: ButtonProps) => {
     const pressed = useSharedValue(0);
     const disabledValue = useSharedValue(disabled ? 1 : 0);
 
@@ -22,7 +37,9 @@ export const Button = ({ children, onPress, variant = "primary", activeOpacity =
         primary: Colors.primary,
         secondary: Colors.surfaceSecondary,
         accent: Colors.accent,
-    }, backgroundColor = backgroundColors[variant];
+    };
+
+    const backgroundColor = backgroundColors[variant];
 
     const animatedStyle = useAnimatedStyle(() => {
         return {
@@ -34,18 +51,33 @@ export const Button = ({ children, onPress, variant = "primary", activeOpacity =
 
             transform: [
                 {
-                    scale: withSpring(
-                        pressed.value ? 0.97 : 1
-                    )
-                }
-            ]
+                    translateX: withSpring(
+                        pressed.value ? 2 : 0,
+                        {
+                            damping: 18,
+                            stiffness: 250,
+                        }
+                    ),
+                },
+                {
+                    translateY: withSpring(
+                        pressed.value ? 3 : 0,
+                        {
+                            damping: 18,
+                            stiffness: 250,
+                        }
+                    ),
+                },
+            ],
         };
     });
 
     useEffect(() => {
         disabledValue.value = withTiming(
             disabled ? 1 : 0,
-            { duration: 250 }
+            {
+                duration: 250,
+            }
         );
     }, [disabled]);
 
@@ -59,18 +91,28 @@ export const Button = ({ children, onPress, variant = "primary", activeOpacity =
                 pressed.value = 0;
             }}
             disabled={disabled}
+            style={({ pressed: isPressed }) => [
+                styles.wrapper,
+                isPressed && {
+                    opacity: activeOpacity,
+                },
+            ]}
         >
             <Animated.View
                 style={[
                     styles.button,
                     style,
-                    animatedStyle
+                    animatedStyle,
                 ]}
             >
                 {children}
-            {/* <Typography variant="body"> {children} </Typography> */}
-            </Animated.View>
 
+                {/* Comic-book highlight */}
+                <Animated.View
+                    pointerEvents="none"
+                    style={styles.highlight}
+                />
+            </Animated.View>
         </Pressable>
     );
-}
+};

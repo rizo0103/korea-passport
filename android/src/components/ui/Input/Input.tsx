@@ -32,6 +32,12 @@ export const Input = forwardRef<TextInput, Props>(
     ) => {
         const [focused, setFocused] = useState(false);
 
+        const borderColor = error
+            ? Colors.error
+            : focused
+                ? Colors.primaryLight
+                : "#0A0A0A";
+
         return (
             <View
                 style={{
@@ -39,7 +45,6 @@ export const Input = forwardRef<TextInput, Props>(
                 }}
             >
                 {/* Label */}
-
                 {label && (
                     <Typography
                         variant="caption"
@@ -58,64 +63,92 @@ export const Input = forwardRef<TextInput, Props>(
                     </Typography>
                 )}
 
-                {/* Input */}
-
+                {/* Input shadow */}
                 <View
                     style={{
-                        borderRadius: Radius.md,
+                        borderRadius: Radius.lg,
 
-                        borderWidth: 1,
+                        backgroundColor: "#000000",
 
-                        borderColor: error
-                            ? Colors.error
-                            : focused
-                                ? Colors.primaryLight
-                                : "rgba(255,255,255,0.08)",
-
-                        backgroundColor: focused
-                            ? "rgba(255,255,255,0.055)"
-                            : "rgba(255,255,255,0.035)",
-
-                        shadowOpacity: focused ? 0.12 : 0,
-                        shadowRadius: 10,
-                        shadowOffset: {
-                            width: 0,
-                            height: 0,
-                        },
+                        transform: [
+                            {
+                                translateX: 3,
+                            },
+                            {
+                                translateY: 4,
+                            },
+                        ],
                     }}
                 >
-                    <TextInput
-                        ref={ref}
-                        {...props}
-                        onFocus={(event) => {
-                            setFocused(true);
-                            onFocus?.(event);
+                    {/* Input */}
+                    <View
+                        style={{
+                            minHeight: 52,
+
+                            borderRadius: Radius.lg,
+
+                            borderWidth: 3,
+                            borderColor,
+
+                            backgroundColor: focused
+                                ? Colors.surfaceSecondary
+                                : Colors.surface,
+
+                            overflow: "hidden",
                         }}
-                        onBlur={(event) => {
-                            setFocused(false);
-                            onBlur?.(event);
-                        }}
-                        selectionColor={Colors.primaryLight}
-                        placeholderTextColor={Colors.textSecondary}
-                        style={[
-                            {
-                                height: 52,
+                    >
+                        <TextInput
+                            ref={ref}
+                            {...props}
+                            onFocus={(event) => {
+                                setFocused(true);
+                                onFocus?.(event);
+                            }}
+                            onBlur={(event) => {
+                                setFocused(false);
+                                onBlur?.(event);
+                            }}
+                            selectionColor={Colors.primaryLight}
+                            placeholderTextColor={Colors.textSecondary}
+                            style={[
+                                {
+                                    height: 52,
 
-                                paddingHorizontal: Spacing.md,
+                                    paddingHorizontal: Spacing.md,
 
-                                color: Colors.textPrimary,
+                                    color: Colors.textPrimary,
 
-                                fontSize: 15,
+                                    fontFamily: "NotoSansKR-Regular",
+                                    fontSize: 15,
 
-                                includeFontPadding: false,
-                            },
-                            style,
-                        ]}
-                    />
+                                    includeFontPadding: false,
+                                },
+                                style,
+                            ]}
+                        />
+
+                        {/* Comic highlight */}
+                        <View
+                            pointerEvents="none"
+                            style={{
+                                position: "absolute",
+
+                                top: 3,
+                                left: 8,
+                                right: 8,
+
+                                height: 2,
+
+                                borderRadius: Radius.full,
+
+                                backgroundColor:
+                                    "rgba(255,255,255,0.10)",
+                            }}
+                        />
+                    </View>
                 </View>
 
                 {/* Error */}
-
                 {error && (
                     <Typography
                         variant="caption"
