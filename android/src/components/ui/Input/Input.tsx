@@ -47,7 +47,6 @@ export const Input = forwardRef<TextInput, Props>(
                 {/* Label */}
                 {label && (
                     <Typography
-                        variant="caption"
                         color={
                             error
                                 ? Colors.error
@@ -118,7 +117,7 @@ export const Input = forwardRef<TextInput, Props>(
 
                                     color: Colors.textPrimary,
 
-                                    fontFamily: "NotoSansKR-Regular",
+                                    fontFamily: "Jua-Regular",
                                     fontSize: 15,
 
                                     includeFontPadding: false,

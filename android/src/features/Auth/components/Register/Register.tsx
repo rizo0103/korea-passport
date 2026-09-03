@@ -231,7 +231,6 @@ export const Register = ({ onSwitch }: RegisterProps) => {
 
                 {!isVerySmallPhone && (
                     <Typography
-                        variant="caption"
                         color={Colors.textSecondary}
                         align="center"
                         style={{
@@ -277,7 +276,6 @@ export const Register = ({ onSwitch }: RegisterProps) => {
                 />
 
                 <Typography
-                    variant="caption"
                     color={Colors.textSecondary}
                     align="center"
                     style={{
@@ -365,7 +363,6 @@ export const Register = ({ onSwitch }: RegisterProps) => {
             >
                 <Typography
                     onPress={onSwitch}
-                    variant="caption"
                     align="center"
                     style={{
                         marginTop: Spacing.sm,
@@ -374,7 +371,6 @@ export const Register = ({ onSwitch }: RegisterProps) => {
                     Already have an account?{" "}
 
                     <Typography
-                        variant="caption"
                         color={Colors.primaryLight}
                         style={{
                             textDecorationLine: "underline",

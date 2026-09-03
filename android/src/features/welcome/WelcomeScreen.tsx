@@ -129,17 +129,17 @@ export const WelcomeScreen = () => {
                     {/* TERMS */}
 
                     <Animated.View entering={FadeIn.duration(600).delay(700) } style={styles.terms}>
-                        <Typography variant="caption" align="center" color={Colors.textSecondary}>
-                            By continuing you agree to{"\n"}
+                        <Typography align="center" color={Colors.textSecondary}>
+                            By continuing you are agree to{"\n"}
 
-                            <Typography variant="caption" align="center" color={Colors.accentLight}>
+                            <Typography align="center" color={Colors.accentLight}>
                                 Terms of Service{" "}
 
-                                <Typography variant="caption" color={Colors.textSecondary}>
+                                <Typography color={Colors.textSecondary}>
                                     and {" "}
                                 </Typography>
 
-                                <Typography variant="caption" color={Colors.primaryLight}>
+                                <Typography color={Colors.primaryLight}>
                                     Privacy Policy
                                 </Typography>
                             </Typography>

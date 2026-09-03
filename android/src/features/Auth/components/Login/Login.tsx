@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useRef, useState } from "react";
 
 import {
@@ -85,7 +86,6 @@ export const Login = ({ onSwitch }: LoginProps) => {
                 </Typography>
 
                 <Typography
-                    variant="caption"
                     color={Colors.textSecondary}
                     align="center"
                     style={{
@@ -181,7 +181,7 @@ export const Login = ({ onSwitch }: LoginProps) => {
                 }
             >
                 <Typography
-                    variant="caption"
+                    variant="title"
                     align="center"
                     onPress={onSwitch}
                     style={{
@@ -191,7 +191,7 @@ export const Login = ({ onSwitch }: LoginProps) => {
                     Don't have an account yet?{" "}
 
                     <Typography
-                        variant="caption"
+                        variant="title"
                         color={Colors.primaryLight}
                         style={{
                             textDecorationLine: "underline",

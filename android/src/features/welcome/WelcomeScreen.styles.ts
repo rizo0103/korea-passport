@@ -37,12 +37,11 @@ export const createWelcomeStyles = ({
         },
 
         bottomSection: {
-            gap: sectionGap,
             marginTop: bottomMargin,
         },
 
         terms: {
-            marginBottom: Spacing.md,
+            marginBottom: Spacing.lg,
         },
 
         termsSecondary: {
