@@ -6,25 +6,34 @@ import {
     useState,
 } from "react";
 
-import { LoginRequest, RegisterRequest, User } from "../types/auth";
+import { router } from "expo-router";
+
+import {
+    LoginRequest,
+    RegisterRequest,
+    User,
+} from "../types/auth";
+
 import { authApi } from "../api/auth";
 import { tokenStorage } from "../store/token";
-import { router } from "expo-router";
 
 interface AuthContextType {
     user: User | null;
     loading: boolean;
     isAuthenticated: boolean;
 
-    login(data: LoginRequest): Promise < void >;
-    register(data: RegisterRequest): Promise < void >;
-    logout(): Promise < void >;
+    login(data: LoginRequest): Promise<void>;
+    register(data: RegisterRequest): Promise<void>;
+    logout(): Promise<void>;
 }
 
-const AuthContext = createContext < AuthContextType | null > (null);
+const AuthContext =
+    createContext<AuthContextType | null>(null);
 
-export function AuthProvider({ children }: PropsWithChildren) {
-    const [user, setUser] = useState < User | null > (null);
+export function AuthProvider({
+    children,
+}: PropsWithChildren) {
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     const isAuthenticated = !!user;
@@ -32,56 +41,92 @@ export function AuthProvider({ children }: PropsWithChildren) {
     const loadCurrentUser = async () => {
         try {
             const me = await authApi.me();
+
             setUser(me.data);
-        } catch (e) {
+        } catch (error) {
+            console.error("Failed to load current user:", error);
+
             setUser(null);
-            await tokenStorage.remove();
-            console.error(e);
         }
     };
-    const login : AuthContextType["login"] = async (data) => {
-        const loginResponse = await authApi.login(data);
 
-        if (!loginResponse.data.token) {
-            throw new Error("No token returned from login.");
+    const login: AuthContextType["login"] = async (
+        data
+    ) => {
+        const response = await authApi.login(data);
+
+        if (!response.data.token) {
+            throw new Error(
+                "No token returned from login."
+            );
         }
 
-        await tokenStorage.save(loginResponse.data.token);
+        await tokenStorage.save(
+            response.data.token
+        );
+
         await loadCurrentUser();
     };
 
-    const register : AuthContextType["register"] = async (data) => {
-        const registerResponse = await authApi.register(data);
+    const register: AuthContextType["register"] =
+        async (data) => {
+            const response =
+                await authApi.register(data);
 
-        if (!registerResponse.data.token) {
-            throw new Error("No token returned from register.");
-        }
+            if (!response.data.token) {
+                throw new Error(
+                    "No token returned from register."
+                );
+            }
 
-        await tokenStorage.save(registerResponse.data.token);
-        await loadCurrentUser();
-    };
+            await tokenStorage.save(
+                response.data.token
+            );
 
-    const logout : AuthContextType["logout"] = async () => {
-        await tokenStorage.clear();
-        setUser(null);
-    };
+            await loadCurrentUser();
+        };
+
+    const logout: AuthContextType["logout"] =
+        async () => {
+            try {
+                await tokenStorage.clear();
+            } finally {
+                setUser(null);
+            }
+
+            router.replace("/welcome");
+        };
 
     useEffect(() => {
         const init = async () => {
             try {
-                const token = await tokenStorage.get();
+                const token =
+                    await tokenStorage.get();
 
                 if (token) {
                     await loadCurrentUser();
                 } else {
-                    logout();
-                    router.push("/welcome");
+                    setUser(null);
+                    router.replace("/welcome");
+                }
+            } catch (error) {
+                console.error(
+                    "Auth initialization error:",
+                    error
+                );
+
+                setUser(null);
+
+                try {
+                    await tokenStorage.clear();
+                } catch (storageError) {
+                    console.error(
+                        "Failed to clear token:",
+                        storageError
+                    );
                 }
 
-            } catch (error) {
-                console.error(error);
-                await tokenStorage.clear();
-                router.push("/welcome");
+                router.replace("/welcome");
             } finally {
                 setLoading(false);
             }
@@ -96,7 +141,6 @@ export function AuthProvider({ children }: PropsWithChildren) {
                 user,
                 loading,
                 isAuthenticated,
-                
                 login,
                 register,
                 logout,
@@ -111,7 +155,9 @@ export const useAuth = () => {
     const context = useContext(AuthContext);
 
     if (!context) {
-        throw new Error("useAuth must be used inside AuthProvider");
+        throw new Error(
+            "useAuth must be used inside AuthProvider"
+        );
     }
 
     return context;
